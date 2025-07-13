@@ -1,0 +1,28 @@
+# System Files and Directories
+.DS_Store
+.fuse_hidden*
+.Spotlight-V100
+.Trashes
+Desktop.ini
+Thumbs.db
+
+# Environment Variables
+.env
+
+# Python
+__pycache__/
+.mypy_cache/
+.python-version
+.venv/
+*.egg-info
+*.py[cod]
+*.py[oc]
+*$py.class
+build/
+dist/
+uv.lock
+venv/
+wheels/
+
+# Editor
+.vscode/
