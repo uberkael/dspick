@@ -4,4 +4,9 @@ version = "0.1.0"
 description = " Like Navi, but with DSPy under the hood—ask, get a CLI command, done. "
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "dspy>=2.6.27",
+    "ipykernel>=6.29.5",
+    "prompt-toolkit>=3.0.51",
+    "rich>=14.0.0",
+]
