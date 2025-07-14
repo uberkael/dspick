@@ -18,26 +18,28 @@ REEMPLAZOS = {
 
 
 def selector(opciones):
+	opts = [f'"{k}") echo {v}' for k, v in opciones.items()]
+	preview = f"case {{}} in\n{';;'.join(opts)}\nesac"
 	try:
 		# Ejecuta fzf con la lista de opciones
 		result = subprocess.run(
-			["fzf"],
-			input="\n".join(opciones),
+			["fzf", "--preview", preview],
+			input="\n".join(opciones.keys()),
 			text=True,
 			capture_output=True,
 			check=True
 		)
 		return result.stdout.strip()
 	except subprocess.CalledProcessError:
-		return None  # si se cancela con Esc
+		return ""  # si se cancela con Esc
 
 
 # print(linea)
 # print(len(linea))
 if last_command == "":
 	# print("No command provided.")
-	opciones = ["saludar", "salir", "ayuda", "listar", "borrar"]
-	last = selector(opciones)
+	sel = selector(REEMPLAZOS)
+	last = REEMPLAZOS.get(sel, "")
 else:
 	# print("For")
 	for clave, reemplazo in REEMPLAZOS.items():
