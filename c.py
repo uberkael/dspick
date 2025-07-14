@@ -1,7 +1,6 @@
 #!/usr/bin/env python
+import subprocess
 import sys
-from prompt_toolkit import PromptSession
-from prompt_toolkit.completion import WordCompleter
 
 
 linea = sys.stdin.read().strip().split('|')
@@ -17,10 +16,28 @@ REEMPLAZOS = {
 	"show all": "ps aux",
 }
 
+
+def selector(opciones):
+	try:
+		# Ejecuta fzf con la lista de opciones
+		result = subprocess.run(
+			["fzf"],
+			input="\n".join(opciones),
+			text=True,
+			capture_output=True,
+			check=True
+		)
+		return result.stdout.strip()
+	except subprocess.CalledProcessError:
+		return None  # si se cancela con Esc
+
+
 # print(linea)
 # print(len(linea))
 if last_command == "":
-	print("No command provided.")
+	# print("No command provided.")
+	opciones = ["saludar", "salir", "ayuda", "listar", "borrar"]
+	last = selector(opciones)
 else:
 	# print("For")
 	for clave, reemplazo in REEMPLAZOS.items():
