@@ -13,9 +13,12 @@ class CommandQuestion(dspy.Signature):
 	command = dspy.OutputField(desc="A single command with arguments to execute in the terminal")
 
 
-q = "list all files and hidden files in the current directory"
-predict = dspy.Predict(CommandQuestion)
-prediction = predict(question=f"in a operating system: {platform.system()}, what is the command and arguments to do: {q}")
+def predict(q: str = "list all files and hidden files in the current directory") -> CommandQuestion:
+	"""Predict the command to execute based on the question."""
+	predict = dspy.Predict(CommandQuestion)
+	return predict(question=f"in a operating system: {platform.system()}, what is the command and arguments to do: {q}")
 
-print("-" * 60)
-print(prediction.command)
+
+p = predict()
+# print("-" * 60)
+print(p.command)
