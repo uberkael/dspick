@@ -1,5 +1,5 @@
 def main():
-	print("Hello from dspyck!")
+	print("Hello from dspick!")
 
 
 if __name__ == "__main__":

@@ -1,21 +1,21 @@
 #!/usr/bin/env zsh
 
-_dspyck_call() {
+_dspick_call() {
 	local result="$(navi "$@" </dev/tty)"
 	printf "%s" "$result"
 }
 
-_dspyck_widget() {
+_dspick_widget() {
 	local -r input="${LBUFFER}"
 	local -r last_command="$(echo "${input}" | navi fn widget::last_command)"
 	local replacement="$last_command"
 
 	if [ -z "$last_command" ]; then
-		replacement="$(_dspyck_call --print)"
-	elif [ "$LASTWIDGET" = "_dspyck_widget" ] && [ "$input" = "$previous_output" ]; then
-		replacement="$(_dspyck_call --print --query "$last_command")"
+		replacement="$(_dspick_call --print)"
+	elif [ "$LASTWIDGET" = "_dspick_widget" ] && [ "$input" = "$previous_output" ]; then
+		replacement="$(_dspick_call --print --query "$last_command")"
 	else
-		replacement="$(_dspyck_call --print --best-match --query "$last_command")"
+		replacement="$(_dspick_call --print --best-match --query "$last_command")"
 	fi
 
 	if [ -n "$replacement" ]; then
@@ -32,5 +32,5 @@ _dspyck_widget() {
 	zle redisplay
 }
 
-zle -N _dspyck_widget
-bindkey '^g' _dspyck_widget
+zle -N _dspick_widget
+bindkey '^g' _dspick_widget

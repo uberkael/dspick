@@ -1,7 +1,7 @@
-__reemplazar_comando() {
+__dspick() {
 	local output=$(echo "$READLINE_LINE" | uv run c.py)
 	READLINE_LINE="$output"
 	READLINE_POINT=${#READLINE_LINE}
 }
 
-bind -x '"\C-g":__reemplazar_comando'
+bind -x '"\C-g":__dspick'

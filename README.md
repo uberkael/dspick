@@ -1,2 +1,5 @@
-# DsPyck
-Like Navi, but with DSPy under the hood—ask, get a CLI command, done.
+# DsPick
+
+Like Navi, but with DSPy (LLMs) under the hood.
+
+Ask, Get a CLI command, Done.

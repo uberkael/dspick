@@ -1,5 +1,5 @@
 # Define the function
-function dspyck_command() {
+function dspick() {
 	local input="$BUFFER"
 	local output
 	output=$(print -r -- "$input" | uv run c.py)
@@ -8,7 +8,7 @@ function dspyck_command() {
 }
 
 # Create the zle widget
-zle -N dspyck_command
+zle -N dspick
 
 # Bind Ctrl+G to the function
-bindkey '^G' dspyck_command
+bindkey '^G' dspick
