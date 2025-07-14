@@ -1,5 +1,5 @@
 __dspick() {
-	local output=$(echo "$READLINE_LINE" | uv run c.py)
+	local output=$(echo "$READLINE_LINE" | uv run dspick.py)
 	READLINE_LINE="$output"
 	READLINE_POINT=${#READLINE_LINE}
 }

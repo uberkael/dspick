@@ -2,7 +2,7 @@
 function dspick() {
 	local input="$BUFFER"
 	local output
-	output=$(print -r -- "$input" | uv run c.py)
+	output=$(print -r -- "$input" | uv run dspick.py)
 	BUFFER="$output"
 	CURSOR=${#BUFFER}
 }

@@ -1,24 +1,46 @@
-# %%
-import dspy  # type: ignore
-import platform
-from config import lm
+#!/usr/bin/env python
+import subprocess
+import sys
 
 
-_ = lm
+line = sys.stdin.read().strip().split('|')
+line = [li.strip() for li in line]
+last_command = line[-1]
+last = last_command
+
+REPLACEMENTS = {
+	"chose second column": "awk '{print $2}'",
+	"chose first column": "awk '{print $1}'",
+	"first": "head -n 1",
+	"show all": "ps aux",
+}
 
 
-class CommandQuestion(dspy.Signature):
-	"""Given a question, return a single command and arguments to perform the action."""
-	question = dspy.InputField(desc="User's question")
-	command = dspy.OutputField(desc="A single command with arguments to execute in the terminal")
+def selector(options):
+	opts = [f'"{k}") echo {v}' for k, v in options.items()]
+	preview = f"case {{}} in\n{';;'.join(opts)}\nesac"
+	try:
+		result = subprocess.run(
+			["fzf", "--preview", preview],
+			input="\n".join(options.keys()),
+			text=True,
+			capture_output=True,
+			check=True
+		)
+		return result.stdout.strip()
+	except subprocess.CalledProcessError:
+		return ""  # if cancel Esc
 
 
-def predict(q: str = "list all files and hidden files in the current directory") -> CommandQuestion:
-	"""Predict the command to execute based on the question."""
-	predict = dspy.Predict(CommandQuestion)
-	return predict(question=f"in a operating system: {platform.system()}, what is the command and arguments to do: {q}")
+if last_command == "":
+	sel = selector(REPLACEMENTS)
+	last = REPLACEMENTS.get(sel, "")
+else:
+	for clave, reemplazo in REPLACEMENTS.items():
+		if clave in last_command:
+			last = reemplazo
 
 
-p = predict()
-# print("-" * 60)
-print(p.command)
+final_prompt: list[str] = line[:-1] + [last]
+final: str = ' | '.join(final_prompt)
+print(final)
