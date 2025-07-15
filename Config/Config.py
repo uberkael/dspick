@@ -1,10 +1,18 @@
-import dspy  # type: ignore
-import os
 from dotenv import load_dotenv
+import os
+import tomllib
+import dspy  # type: ignore
+
+
+def parse_toml(filename):
+	with open(filename, "r") as f:
+		return tomllib.loads(f.read())
 
 
 load_dotenv()
 google_key = os.getenv("GOOGLE_API_KEY")
+
+parse_toml("config.toml")
 
 # Disable cache for the LM
 # dspy.configure_cache(
