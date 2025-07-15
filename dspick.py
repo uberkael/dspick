@@ -1,19 +1,13 @@
 #!/usr/bin/env python
 import subprocess
 import sys
+from Prediction import predict
 
 
 line = sys.stdin.read().strip().split('|')
 line = [li.strip() for li in line]
 last_command = line[-1]
 last = last_command
-
-REPLACEMENTS = {
-	"chose second column": "awk '{print $2}'",
-	"chose first column": "awk '{print $1}'",
-	"first": "head -n 1",
-	"show all": "ps aux",
-}
 
 
 def selector(options):
@@ -33,13 +27,9 @@ def selector(options):
 
 
 if last_command == "":
-	sel = selector(REPLACEMENTS)
-	last = REPLACEMENTS.get(sel, "")
+	last = last_command
 else:
-	for clave, reemplazo in REPLACEMENTS.items():
-		if clave in last_command:
-			last = reemplazo
-
+	last = predict(last_command).command
 
 final_prompt: list[str] = line[:-1] + [last]
 final: str = ' | '.join(final_prompt)
