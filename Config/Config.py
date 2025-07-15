@@ -9,24 +9,34 @@ def parse_toml(filename):
 		return tomllib.loads(f.read())
 
 
-load_dotenv()
-google_key = os.getenv("GOOGLE_API_KEY")
-
-parse_toml("config.toml")
-
-# Disable cache for the LM
-# dspy.configure_cache(
-# 	enable_disk_cache=False,
-# 	enable_memory_cache=False,
-# )
+lm = None
+config = parse_toml("config.toml")
 
 
-# lm = dspy.LM(model='ollama/qwen3')
-# lm = dspy.LM(model='ollama/deepseek-r1')
-# lm = dspy.LM(model='ollama/deepseek-v2')
-# lm = dspy.LM(model='ollama/mistral')
-# lm = dspy.LM(model='ollama/gemma3')
-# lm = dspy.LM('gemini/gemini-2.5-pro', api_key=google_key)
-lm = dspy.LM('gemini/gemini-2.5-flash-lite-preview-06-17', api_key=google_key)
+match config["llm"]["type"]:
+	case "ollama":
+		if "ollama" in config:
+			lm = dspy.LM(model=config["ollama"]["model"])
+		else:
+			raise ValueError("Ollama model not specified in config.toml")
+	case "google":
+		if model := config["google"]["model"]:
+			load_dotenv()
+			google_key = os.getenv("GOOGLE_API_KEY")
+			lm = dspy.LM(model, api_key=google_key)
+		else:
+			raise ValueError("Google model not specified in config.toml")
+	case _:
+		raise ValueError(f"Unsupported LLM type: {config['llm']['type']}")
+
+if not config["llm"]["cache"]:
+	# Disable cache for the LM
+	dspy.configure_cache(
+		enable_disk_cache=False,
+		enable_memory_cache=False,
+	)
+
+if not lm:
+	raise ValueError("No language model configured. Please check your config.toml file.")
 
 dspy.configure(lm=lm)
