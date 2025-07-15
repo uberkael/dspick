@@ -1,3 +1,10 @@
 import json
-with open("data.json", "r") as f:
-	data = json.load(f)
+
+data = ""
+
+with open("prediction/data.json", "r") as f:
+	data = json.load(f)["data"]
+
+
+if __name__ == "__main__":
+	print(data)

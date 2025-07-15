@@ -1,5 +1,5 @@
 {
-  "linux_commands": [
+  "data": [
     {
       "command": "awk '{print $2}'",
       "description": "Prints the second column of each input line"
