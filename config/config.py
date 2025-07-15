@@ -9,11 +9,11 @@ lm = None
 match config["llm"]["type"]:
 	case "ollama":
 		if "ollama" in config:
-			lm = dspy.LM(model=config["ollama"]["model"])
+			lm = dspy.LM(model=config["llm"]["model"])
 		else:
 			raise ValueError("Ollama model not specified in config.toml")
 	case "google":
-		if model := config["google"]["model"]:
+		if model := config["llm"]["model"]:
 			load_dotenv()
 			google_key = os.getenv("GOOGLE_API_KEY")
 			lm = dspy.LM(model, api_key=google_key)

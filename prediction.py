@@ -17,7 +17,3 @@ def predict(q: str = "list all files and hidden files in the current directory")
 	"""Predict the command to execute based on the question."""
 	predict = dspy.Predict(CommandQuestion)
 	return predict(question=f"in a operating system: {platform.system()}, what is the command and arguments to do: {q}")
-
-
-# p = predict()
-# print(p.command)
