@@ -1,7 +1,7 @@
 # %%
 import dspy  # type: ignore
 import platform
-from Config.Config import lm
+from config.config import lm
 
 
 _ = lm
