@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import dspy  # type: ignore
-from config.reader_config import config
+from config.file_config import config
 
 
 lm = None
