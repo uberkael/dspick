@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import subprocess
 import sys
-from prediction import predict
+from prediction.prediction import predict
 
 
 line = sys.stdin.read().strip().split('|')
