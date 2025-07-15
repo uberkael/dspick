@@ -7,6 +7,9 @@ requires-python = ">=3.12"
 dependencies = [
     "dspy>=2.6.27",
     "ipykernel>=6.29.5",
+    "npyscreen>=4.10.5",
     "prompt-toolkit>=3.0.51",
+    "questionary>=2.1.0",
     "rich>=14.0.0",
+    "urwid>=3.0.2",
 ]

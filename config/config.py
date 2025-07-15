@@ -1,17 +1,10 @@
 from dotenv import load_dotenv
 import os
-import tomllib
 import dspy  # type: ignore
-
-
-def parse_toml(filename):
-	with open(filename, "r") as f:
-		return tomllib.loads(f.read())
+from config.reader_config import config
 
 
 lm = None
-config = parse_toml("config.toml")
-
 
 match config["llm"]["type"]:
 	case "ollama":
