@@ -1,0 +1,464 @@
+{
+  "linux_commands": [
+    {
+      "command": "awk '{print $2}'",
+      "description": "Prints the second column of each input line"
+    },
+    {
+      "command": "ls -vld .?*",
+      "description": "Lists all hidden files showing their permissions"
+    },
+    {
+      "command": "tail -n 3",
+      "description": "Displays the last 3 lines of a file"
+    },
+    {
+      "command": "uname -r",
+      "description": "Shows the kernel version of the system"
+    },
+    {
+      "command": "lsblk -o NAME,LABEL",
+      "description": "Lists block devices showing name and label"
+    },
+    {
+      "command": "grep -v p1",
+      "description": "Searches for lines NOT containing 'p1'"
+    },
+    {
+      "command": "free -h",
+      "description": "Displays free memory in human-readable format"
+    },
+    {
+      "command": "df",
+      "description": "Shows disk space usage information"
+    },
+    {
+      "command": "ps aux",
+      "description": "Displays detailed information of all running processes"
+    },
+    {
+      "command": "find / -type f -size +100M",
+      "description": "Searches for files larger than 100MB in the entire system"
+    },
+    {
+      "command": "dd if=/dev/zero of=testfile bs=1G count=1",
+      "description": "Creates a 1GB test file"
+    },
+    {
+      "command": "strace -f -e trace=open,read,write,close command",
+      "description": "Traces system calls of a specific command"
+    },
+    {
+      "command": "lsof -i :8080",
+      "description": "Lists processes using port 8080"
+    },
+    {
+      "command": "ip -s -h link",
+      "description": "Shows network interface statistics in human-readable format"
+    },
+    {
+      "command": "journalctl -xe",
+      "description": "Displays system logs with extended details"
+    },
+    {
+      "command": "tar -czvf archive.tar.gz /path/to/dir",
+      "description": "Creates a compressed tar.gz archive of a directory"
+    },
+    {
+      "command": "rsync -avz --progress source dest",
+      "description": "Syncs directories while showing progress"
+    },
+    {
+      "command": "ssh -i ~/.ssh/key.pem user@host",
+      "description": "SSH connection using a specific key"
+    },
+    {
+      "command": "gpg -c file.txt",
+      "description": "Encrypts a file using GPG"
+    },
+    {
+      "command": "openssl rand -base64 32",
+      "description": "Generates a secure random string in base64"
+    },
+    {
+      "command": "iptables -L -n -v",
+      "description": "Lists iptables rules with detailed information"
+    },
+    {
+      "command": "netstat -tulnp",
+      "description": "Shows listening ports and associated processes"
+    },
+    {
+      "command": "ss -s",
+      "description": "Displays detailed socket statistics"
+    },
+    {
+      "command": "tcpdump -i eth0 port 80",
+      "description": "Captures HTTP traffic on eth0 interface"
+    },
+    {
+      "command": "iftop -n",
+      "description": "Real-time bandwidth monitoring tool"
+    },
+    {
+      "command": "htop",
+      "description": "Interactive process viewer (enhanced top)"
+    },
+    {
+      "command": "iotop -o",
+      "description": "Shows processes with I/O activity"
+    },
+    {
+      "command": "ncdu",
+      "description": "Interactive disk usage analyzer"
+    },
+    {
+      "command": "mtr google.com",
+      "description": "Combines ping and traceroute in one tool"
+    },
+    {
+      "command": "dig +short myip.opendns.com @resolver1.opendns.com",
+      "description": "Gets the system's public IP"
+    },
+    {
+      "command": "timeout 10 command",
+      "description": "Runs a command with a 10-second timeout"
+    },
+    {
+      "command": "watch -n 1 'df -h'",
+      "description": "Monitors disk space, updating every second"
+    },
+    {
+      "command": "crontab -l",
+      "description": "Lists scheduled tasks for the current user"
+    },
+    {
+      "command": "systemctl list-units --type=service",
+      "description": "Lists all system services"
+    },
+    {
+      "command": "dmidecode -t memory",
+      "description": "Shows detailed RAM information"
+    },
+    {
+      "command": "lshw -short",
+      "description": "Lists system hardware in a compact format"
+    },
+    {
+      "command": "smartctl -a /dev/sda",
+      "description": "Displays SMART data for a hard drive"
+    },
+    {
+      "command": "pv file.txt > output.txt",
+      "description": "Shows progress when redirecting a file"
+    },
+    {
+      "command": "rename 's/old/new/' *.txt",
+      "description": "Renames multiple files using regex"
+    },
+    {
+      "command": "comm -3 file1 file2",
+      "description": "Compares two files, showing unique lines"
+    },
+    {
+      "command": "diff -u file1 file2",
+      "description": "Shows differences between files in unified format"
+    },
+    {
+      "command": "sort -u file.txt",
+      "description": "Sorts a file and removes duplicates"
+    },
+    {
+      "command": "uniq -c file.txt",
+      "description": "Counts occurrences of duplicate lines"
+    },
+    {
+      "command": "cut -d: -f1 /etc/passwd",
+      "description": "Extracts the first colon-delimited column from /etc/passwd"
+    },
+    {
+      "command": "join file1 file2",
+      "description": "Joins two files on common fields"
+    },
+    {
+      "command": "paste file1 file2",
+      "description": "Merges lines from two files side by side"
+    },
+    {
+      "command": "split -b 100M bigfile",
+      "description": "Splits a large file into 100MB chunks"
+    },
+    {
+      "command": "xargs -n1 < file.txt",
+      "description": "Executes a command for each line in a file"
+    },
+    {
+      "command": "parallel -j4 command ::: arg1 arg2 arg3",
+      "description": "Runs commands in parallel with 4 simultaneous jobs"
+    },
+    {
+      "command": "screen -ls",
+      "description": "Lists active screen sessions"
+    },
+    {
+      "command": "tmux list-sessions",
+      "description": "Lists active tmux sessions"
+    },
+    {
+      "command": "curl -s http://example.com | grep -oP '(?<=<title>).*(?=</title>)'",
+      "description": "Extracts the title of a webpage"
+    },
+    {
+      "command": "wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.com",
+      "description": "Downloads a complete website for offline viewing"
+    },
+    {
+      "command": "git log --graph --oneline --all",
+      "description": "Shows Git history in a compact graph format"
+    },
+    {
+      "command": "docker stats",
+      "description": "Displays real-time Docker container statistics"
+    },
+    {
+      "command": "kubectl get pods -A -o wide",
+      "description": "Lists all pods across all namespaces with details"
+    },
+    {
+      "command": "ansible all -m ping",
+      "description": "Tests connectivity with all hosts in inventory"
+    },
+    {
+      "command": "terraform plan -out=tfplan",
+      "description": "Generates a Terraform execution plan"
+    },
+    {
+      "command": "packer build template.json",
+      "description": "Builds a machine image using Packer"
+    },
+    {
+      "command": "vagrant ssh-config",
+      "description": "Displays SSH configuration for Vagrant machines"
+    },
+    {
+      "command": "jq '.key' file.json",
+      "description": "Extracts a specific value from a JSON file"
+    },
+    {
+      "command": "yq eval '.key' file.yaml",
+      "description": "Extracts a specific value from a YAML file"
+    },
+    {
+      "command": "csvcut -c 1,3 file.csv",
+      "description": "Extracts specific columns from a CSV file"
+    },
+    {
+      "command": "xmlstarlet sel -t -v '/xpath/expression' file.xml",
+      "description": "Extracts data from XML using XPath"
+    },
+    {
+      "command": "sqlite3 database.db '.schema'",
+      "description": "Shows the schema of a SQLite database"
+    },
+    {
+      "command": "mysql -e 'SHOW PROCESSLIST'",
+      "description": "Shows active processes in MySQL"
+    },
+    {
+      "command": "psql -c '\\dt'",
+      "description": "Lists tables in PostgreSQL"
+    },
+    {
+      "command": "mongo --eval 'db.stats()'",
+      "description": "Executes a JavaScript command in MongoDB"
+    },
+    {
+      "command": "redis-cli INFO",
+      "description": "Displays Redis information and statistics"
+    },
+    {
+      "command": "ldapsearch -x -b 'dc=example,dc=com' '(objectclass=*)'",
+      "description": "Searches an LDAP directory"
+    },
+    {
+      "command": "nmap -sV -O 192.168.1.1",
+      "description": "Scans a host, detecting services and OS"
+    },
+    {
+      "command": "wireshark -k -i eth0",
+      "description": "Starts packet capture on eth0 interface"
+    },
+    {
+      "command": "tcpflow -c -i eth0 port 80",
+      "description": "Captures and reconstructs TCP flows on port 80"
+    },
+    {
+      "command": "john --wordlist=passwords.txt hashfile",
+      "description": "Attempts to crack hashes using a dictionary"
+    },
+    {
+      "command": "hashcat -m 0 -a 0 hash.txt rockyou.txt",
+      "description": "Performs a brute-force attack on hashes"
+    },
+    {
+      "command": "openssl s_client -connect example.com:443 -servername example.com",
+      "description": "Debugs SSL/TLS connection to a server"
+    },
+    {
+      "command": "certbot renew --dry-run",
+      "description": "Tests Let's Encrypt certificate renewal"
+    },
+    {
+      "command": "fail2ban-client status sshd",
+      "description": "Shows status of the sshd jail in Fail2Ban"
+    },
+    {
+      "command": "auditctl -l",
+      "description": "Lists active auditd rules"
+    },
+    {
+      "command": "selinuxenabled && echo Enabled || echo Disabled",
+      "description": "Checks if SELinux is enabled"
+    },
+    {
+      "command": "getenforce",
+      "description": "Shows SELinux enforcement mode"
+    },
+    {
+      "command": "sestatus",
+      "description": "Displays detailed SELinux status"
+    },
+    {
+      "command": "apparmor_status",
+      "description": "Shows AppArmor status"
+    },
+    {
+      "command": "chroot /mnt/chroot /bin/bash",
+      "description": "Changes root to a specified directory"
+    },
+    {
+      "command": "mount --bind /olddir /newdir",
+      "description": "Mounts a directory to another location"
+    },
+    {
+      "command": "umount -l /mnt",
+      "description": "Unmounts a filesystem lazily"
+    },
+    {
+      "command": "lvmdiskscan",
+      "description": "Scans devices for LVM usage"
+    },
+    {
+      "command": "vgdisplay",
+      "description": "Shows volume group information in LVM"
+    },
+    {
+      "command": "lvresize -L +10G /dev/vg0/lv0",
+      "description": "Extends a logical volume by 10GB"
+    },
+    {
+      "command": "resize2fs /dev/vg0/lv0",
+      "description": "Resizes filesystem to use extended space"
+    },
+    {
+      "command": "mdadm --detail /dev/md0",
+      "description": "Shows details of a software RAID"
+    },
+    {
+      "command": "zpool status",
+      "description": "Displays ZFS pool status"
+    },
+    {
+      "command": "zfs list",
+      "description": "Lists ZFS filesystems"
+    },
+    {
+      "command": "btrfs filesystem show",
+      "description": "Displays Btrfs filesystems"
+    },
+    {
+      "command": "parted -l",
+      "description": "Lists disk partitions with detailed info"
+    },
+    {
+      "command": "gdisk -l /dev/sda",
+      "description": "Shows GPT partition information"
+    },
+    {
+      "command": "badblocks -sv /dev/sda",
+      "description": "Scans for bad blocks on a disk"
+    },
+    {
+      "command": "fsck -y /dev/sda1",
+      "description": "Automatically repairs a filesystem"
+    },
+    {
+      "command": "mkfs.ext4 -L datadisk /dev/sdb1",
+      "description": "Creates an ext4 filesystem with a label"
+    },
+    {
+      "command": "tune2fs -l /dev/sda1",
+      "description": "Shows ext2/ext3/ext4 filesystem parameters"
+    },
+    {
+      "command": "debugfs /dev/sda1",
+      "description": "Interactive ext filesystem debug tool"
+    },
+    {
+      "command": "ntfsfix /dev/sdb1",
+      "description": "Fixes common NTFS issues"
+    },
+    {
+      "command": "ddrescue -d /dev/sda /dev/sdb mapfile",
+      "description": "Recovers data from a damaged disk to another disk"
+    },
+    {
+      "command": "testdisk /dev/sda",
+      "description": "Advanced partition recovery tool"
+    },
+    {
+      "command": "photorec /dev/sda1",
+      "description": "Recovers deleted files"
+    },
+    {
+      "command": "strings /bin/ls",
+      "description": "Extracts text strings from a binary"
+    },
+    {
+      "command": "objdump -d /bin/ls",
+      "description": "Disassembles a binary showing assembly code"
+    },
+    {
+      "command": "strace -c ls",
+      "description": "Shows system call statistics for a command"
+    },
+    {
+      "command": "ltrace -c ls",
+      "description": "Shows library call statistics for a command"
+    },
+    {
+      "command": "gdb -q /bin/ls",
+      "description": "Starts GDB debugger with a binary"
+    },
+    {
+      "command": "perf stat ls",
+      "description": "Shows performance statistics for a command"
+    },
+    {
+      "command": "valgrind --leak-check=yes program",
+      "description": "Detects memory leaks in a program"
+    },
+    {
+      "command": "readelf -a /bin/ls",
+      "description": "Shows detailed ELF binary information"
+    },
+    {
+      "command": "nm /bin/ls",
+      "description": "Lists symbols in a binary"
+    },
+    {
+      "command": "ldd /bin/ls",
+      "description": "Lists shared libraries required by a binary"
+    }
+  ]
+}
