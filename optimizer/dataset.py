@@ -1,6 +1,6 @@
 import json
 
-data = ""
+data: dict
 
 with open("optimizer/data.json", "r") as f:
 	data = json.load(f)["data"]
