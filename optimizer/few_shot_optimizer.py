@@ -61,15 +61,17 @@ def calculate(predictor, validate):
 	return scores
 
 
-async def async_validate(x, predictor, validate):
-	pred = predictor(**x)
-	score = validate(x, pred.command)
-	await asyncio.sleep(5)  # Espera no bloqueante
-	return score
+async def async_validate(x, predictor, validate, semaphore):
+	async with semaphore:  # Limita la concurrencia
+		pred = predictor(**x.inputs())
+		score = validate(x, pred)
+		await asyncio.sleep(5)  # Delay no bloqueante entre tareas
+		return score
 
 
-async def calculate_async(predictor, validate):
-	tasks = [async_validate(x, predictor, validate) for x in test]
+async def calculate_async(predictor, validate, max_concurrency=1):
+	semaphore = asyncio.Semaphore(max_concurrency)  # Máximo de tareas concurrentes
+	tasks = [async_validate(x, predictor, validate, semaphore) for x in test]
 	scores = await tqdm_asyncio.gather(*tasks, desc="Procesando")
 	return scores
 
@@ -78,8 +80,8 @@ def get_scores(tipo, pred):
 	scores = file_scores.get(tipo, [])
 	if scores:
 		return scores
-	# scores = asyncio.run(calculate_async(pred, validate_command))
-	scores = calculate(pred, validate_command)
+	scores = asyncio.run(calculate_async(pred, validate_command, max_concurrency=1))
+	# scores = calculate(pred, validate_command)
 	file_scores[tipo] = scores
 	save_scores_to_file(file_scores)
 	return scores
