@@ -22,6 +22,7 @@ def validate_command(example: dspy.Example, pred, trace=None) -> float:
 	"""Validate the sentiment of a tweet."""
 	a = example.command.lower()  # type: ignore
 	b = pred.command.lower()
+	sleep(5)  # Avoid Quotas
 	return SequenceMatcher(None, a, b).ratio()
 
 
@@ -63,8 +64,7 @@ def get_scores(tipo, pred):
 	scores = file_scores.get(tipo, [])
 	if scores:
 		return scores
-	scores = asyncio.run(calculate_async(pred, validate_command, max_concurrency=1))
-	# scores = calculate(pred, validate_command)
+	scores = calculate(pred, validate_command)
 	file_scores[tipo] = scores
 	save_scores_to_file(file_scores)
 	return scores
@@ -96,6 +96,7 @@ print("-" * 60)
 lfs_predict.save(
 	"optimizer/lfs.pkl", save_program=False)
 
+
 ####################
 # BootstrapFewShot #
 ####################
@@ -104,6 +105,7 @@ print("Bootstrap Few Shot:")
 bsfs_optimizer = BootstrapFewShot(
 	metric=validate_command,
 	max_bootstrapped_demos=4,  # Generated examples
+	max_labeled_demos=16,  # Examples from training data
 	metric_threshold=1  # Minimum quality threshold
 )
 bsfs_predict = bsfs_optimizer.compile(
@@ -116,3 +118,25 @@ print("-" * 60)
 # Save
 bsfs_predict.save(
 	"optimizer/bsfs.pkl", save_program=False)
+
+
+####################################
+# BootstrapFewShotWithRandomSearch #
+####################################
+print("Bootstrap Few Shot With Random Search:")
+bsfsrs_optimizer = BootstrapFewShotWithRandomSearch(
+	metric=validate_command,
+	num_candidate_programs=16,
+	max_bootstrapped_demos=8,
+	max_labeled_demos=20
+)
+bsfsrs_predict = bsfsrs_optimizer.compile(
+	base_predict, trainset=train)
+bsfsrs_scores = get_scores("bsfsrs_scores", bsfsrs_predict)
+bsfsrs_accuracy = sum(bsfsrs_scores) / len(bsfsrs_scores)
+
+print(f"Accuracy: {bsfsrs_accuracy}")
+print("-" * 60)
+# Save
+bsfsrs_predict.save(
+	"optimizer/bsfsrs.pkl", save_program=False)
