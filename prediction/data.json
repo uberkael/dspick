@@ -281,7 +281,7 @@
       "description": "Searches an LDAP directory"
     },
     {
-      "command": "nmap -sV -O 192.168.1.1",
+      "command": "nmap -sV -O",
       "description": "Scans a host, detecting services and OS"
     },
     {

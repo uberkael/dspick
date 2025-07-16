@@ -63,21 +63,17 @@ def calculate(predictor, validate):
 	return scores
 
 
-def calculate_baseline():
-	return calculate(base_predict, validate_command)
-
-
-def get_baseline():
-	baseline_scores = file_data.get("baseline_scores", [])
-	if baseline_scores:
-		return baseline_scores
-	baseline_scores = calculate_baseline()
-	file_data["baseline_scores"] = baseline_scores
+def get_scores(tipo, pred):
+	scores = file_data.get(tipo, [])
+	if scores:
+		return scores
+	scores = calculate(pred, validate_command)
+	file_data[tipo] = scores
 	save_to_file(file_data)
-	return baseline_scores
+	return scores
 
 
-baseline_scores = get_baseline()
+baseline_scores = get_scores("baseline_scores", base_predict)
 base_accuracy = sum(baseline_scores) / len(baseline_scores)
 
 print(f"Base: {base_accuracy}")
