@@ -38,7 +38,7 @@ class ConfigForm(npyscreen.Form):
 			npyscreen.TitleCombo,
 			name="Model:",
 			values=get_models(config["llm"]["type"]),
-			value=0)
+			value=get_models(config["llm"]["type"]).index(config["llm"]["model"]) if (config["llm"]["model"]) in get_models(config["llm"]["type"]) else 0)
 
 		self.llm_cache = self.add(
 			npyscreen.Checkbox,
@@ -71,7 +71,7 @@ class ConfigForm(npyscreen.Form):
 		selected_type = self.llm_type.values[idx]
 		models = get_models(selected_type)
 		self.model_combo.values = models
-		self.model_combo.value = 0
+		self.model_combo.value = 0 if self.model_combo.value >= len(models) else self.model_combo.value
 		self.model_combo.display()
 
 	def afterEditing(self):
