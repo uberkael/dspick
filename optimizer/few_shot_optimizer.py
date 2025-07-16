@@ -8,7 +8,7 @@ from dspy.teleprompt import LabeledFewShot  # type: ignore
 # from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
 # from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm
-from dataset import data
+from optimizer.dataset import data
 from difflib import SequenceMatcher
 from signature import DescriptionCommand
 
