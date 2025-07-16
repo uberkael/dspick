@@ -1,5 +1,6 @@
 import os
 import pickle
+from tqdm import tqdm
 from time import sleep
 import dspy  # type: ignore
 from dspy.teleprompt import LabeledFewShot  # type: ignore
@@ -56,13 +57,10 @@ file_data = get_data()
 ##################
 def calculate(predictor, validate):
 	scores = []
-	i = 0
-	for x in test:
+	for x in tqdm(test, desc="Processing", unit="item"):
 		pred = predictor(**x)
 		score = validate(x, pred.command)
 		scores.append(score)
-		print(i)
-		i += 1
 		sleep(5)
 	return scores
 
@@ -95,9 +93,8 @@ lfs_accuracy = sum(lfs_scores) / len(lfs_scores)
 
 print(f"Labeled Few Shot: {lfs_accuracy}")
 
-# # Save podemos guardar el modelo optimizado
-# lfs_predict.save("./optimized_lfs.pkl", save_program=False)
-# # Load
-
+# Save podemos guardar el modelo optimizado
+lfs_predict.save("./lfs.pkl", save_program=False)
+# Load
 # lfs_accuracy = lfs_scores.count(True) / len(lfs_scores)
 # lfs_sentiment = lfs_predict(tweet=example_tweet).sentiment
