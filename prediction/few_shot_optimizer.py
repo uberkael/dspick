@@ -1,0 +1,83 @@
+import os
+import pickle
+from time import sleep
+import dspy  # type: ignore
+from config.config import lm
+from dataset import data
+from difflib import SequenceMatcher
+from signature import DescriptionCommand
+
+
+_ = lm
+
+SCORES_FILE = "scores.pkl"
+
+train_size = 70
+test_size = len(data) - train_size
+
+train = data[:train_size]
+test = data[train_size:]
+
+
+def validate_command(example: dspy.Example, pred, trace=None) -> float:
+	"""Validate the sentiment of a tweet."""
+	a = example.get("command", "").lower()  # type: ignore
+	b = pred.lower()
+	return SequenceMatcher(None, a, b).ratio()
+
+
+base_predict = dspy.Predict(DescriptionCommand)
+
+
+#############
+# File Data #
+#############
+def get_data(file=SCORES_FILE) -> dict:
+	if os.path.exists(file):
+		with open(file, "rb") as f:
+			return pickle.load(f)
+	return {}
+
+
+def save_to_file(dic, file = SCORES_FILE):
+	with open(file, "wb") as f:
+		pickle.dump(dic, f)
+
+
+file_data = get_data()
+
+
+##################
+# Baseline Score #
+##################
+def calculate(predictor, validate):
+	scores = []
+	i = 0
+	for x in test:
+		pred = predictor(**x)
+		score = validate(x, pred.command)
+		scores.append(score)
+		print(i)
+		i += 1
+		sleep(5)
+	return scores
+
+
+def calculate_baseline():
+	return calculate(base_predict, validate_command)
+
+
+def get_baseline():
+	baseline_scores = file_data.get("baseline_scores", [])
+	if baseline_scores:
+		return baseline_scores
+	baseline_scores = calculate_baseline()
+	file_data["baseline_scores"] = baseline_scores
+	save_to_file(file_data)
+	return baseline_scores
+
+
+baseline_scores = get_baseline()
+base_accuracy = sum(baseline_scores) / len(baseline_scores)
+
+print(f"Base: {base_accuracy}")
