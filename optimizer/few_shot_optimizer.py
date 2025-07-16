@@ -10,7 +10,7 @@ from dspy.teleprompt import BootstrapFewShot  # type: ignore
 # from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
 # from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm
-from optimizer.dataset import data
+from optimizer.dataset import test, train
 from difflib import SequenceMatcher
 from signature import DescriptionCommand
 
@@ -18,24 +18,6 @@ from signature import DescriptionCommand
 _ = lm
 
 SCORES_FILE = "optimizer/scores.pkl"
-
-train_size = 70
-test_size = len(data) - train_size
-
-# data_train = data[:train_size]
-# data_test = data[train_size:]
-train = []
-test = []
-for i, line in enumerate(data):
-	example = dspy.Example(
-		command=line.get("command"),
-		description=line.get("description")
-	).with_inputs("description")
-
-	if i < train_size:
-		train.append(example)
-	else:
-		test.append(example)
 
 
 def validate_command(example: dspy.Example, pred, trace=None) -> float:
