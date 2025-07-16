@@ -15,6 +15,7 @@ __pycache__/
 .python-version
 .venv/
 *.egg-info
+*.pkl
 *.py[cod]
 *.py[oc]
 *$py.class
