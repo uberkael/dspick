@@ -2,6 +2,10 @@ import os
 import pickle
 from time import sleep
 import dspy  # type: ignore
+from dspy.teleprompt import LabeledFewShot  # type: ignore
+# from dspy.teleprompt import BootstrapFewShot  # type: ignore
+# from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
+# from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm
 from dataset import data
 from difflib import SequenceMatcher
@@ -77,3 +81,23 @@ baseline_scores = get_scores("baseline_scores", base_predict)
 base_accuracy = sum(baseline_scores) / len(baseline_scores)
 
 print(f"Base: {base_accuracy}")
+
+
+##################
+# LabeledFewShot #
+##################
+lfs_optimizer = LabeledFewShot()
+lfs_predict = lfs_optimizer.compile(
+	base_predict, trainset=train)
+
+lfs_scores = get_scores("lfs_scores", lfs_predict)
+lfs_accuracy = sum(lfs_scores) / len(lfs_scores)
+
+print(f"Labeled Few Shot: {lfs_accuracy}")
+
+# # Save podemos guardar el modelo optimizado
+# lfs_predict.save("./optimized_lfs.pkl", save_program=False)
+# # Load
+
+# lfs_accuracy = lfs_scores.count(True) / len(lfs_scores)
+# lfs_sentiment = lfs_predict(tweet=example_tweet).sentiment
