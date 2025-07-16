@@ -1,13 +1,11 @@
 import os
 import pickle
-import asyncio
-from tqdm.asyncio import tqdm_asyncio  # type: ignore
 from tqdm import tqdm  # type: ignore
 from time import sleep
 import dspy  # type: ignore
 from dspy.teleprompt import LabeledFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShot  # type: ignore
-# from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
+from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
 # from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm
 from optimizer.dataset import test, train
@@ -53,26 +51,11 @@ file_scores = get_scores_data()
 #########
 def calculate(predictor, validate):
 	scores = []
-	for x in tqdm(test, desc="Processing", unit="item"):
+	pb = tqdm(test, desc="Processing", unit="item")
+	for x in pb:
 		pred = predictor(**x.inputs())
 		score = validate(x, pred)
 		scores.append(score)
-		sleep(5)
-	return scores
-
-
-async def async_validate(x, predictor, validate, semaphore):
-	async with semaphore:  # Limita la concurrencia
-		pred = predictor(**x.inputs())
-		score = validate(x, pred)
-		await asyncio.sleep(5)  # Delay no bloqueante entre tareas
-		return score
-
-
-async def calculate_async(predictor, validate, max_concurrency=1):
-	semaphore = asyncio.Semaphore(max_concurrency)  # Máximo de tareas concurrentes
-	tasks = [async_validate(x, predictor, validate, semaphore) for x in test]
-	scores = await tqdm_asyncio.gather(*tasks, desc="Procesando")
 	return scores
 
 
