@@ -1,6 +1,8 @@
 import os
 import pickle
-from tqdm import tqdm
+import asyncio
+from tqdm.asyncio import tqdm_asyncio  # type: ignore
+from tqdm import tqdm  # type: ignore
 from time import sleep
 import dspy  # type: ignore
 from dspy.teleprompt import LabeledFewShot  # type: ignore
@@ -15,7 +17,7 @@ from signature import DescriptionCommand
 
 _ = lm
 
-SCORES_FILE = "scores.pkl"
+SCORES_FILE = "optimizer/scores.pkl"
 
 train_size = 70
 test_size = len(data) - train_size
@@ -65,11 +67,24 @@ def calculate(predictor, validate):
 	return scores
 
 
+async def async_validate(x, predictor, validate):
+	pred = predictor(**x)
+	score = validate(x, pred.command)
+	await asyncio.sleep(5)  # Espera no bloqueante
+	return score
+
+
+async def calculate_async(predictor, validate):
+	tasks = [async_validate(x, predictor, validate) for x in test]
+	scores = await tqdm_asyncio.gather(*tasks, desc="Procesando")
+	return scores
+
+
 def get_scores(tipo, pred):
 	scores = file_data.get(tipo, [])
 	if scores:
 		return scores
-	scores = calculate(pred, validate_command)
+	scores = asyncio.run(calculate_async(pred, validate_command))
 	file_data[tipo] = scores
 	save_to_file(file_data)
 	return scores
@@ -94,7 +109,7 @@ lfs_accuracy = sum(lfs_scores) / len(lfs_scores)
 print(f"Labeled Few Shot: {lfs_accuracy}")
 
 # Save podemos guardar el modelo optimizado
-lfs_predict.save("./lfs.pkl", save_program=False)
+lfs_predict.save("optimizer/lfs.pkl", save_program=False)
 # Load
 # lfs_accuracy = lfs_scores.count(True) / len(lfs_scores)
 # lfs_sentiment = lfs_predict(tweet=example_tweet).sentiment
