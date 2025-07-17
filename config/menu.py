@@ -2,8 +2,8 @@ import npyscreen  # type: ignore
 import signal
 from file_config import config, save_toml
 
+
 signal.signal(signal.SIGINT, lambda sig, frame: exit(0))
-tecla = ""
 
 
 def get_models(llm_type):
@@ -37,26 +37,26 @@ class ConfigForm(npyscreen.Form):
 		self.type = self.add(
 			npyscreen.TitleCombo,
 			name="Type:",
-			values=config["llm"]["types"],
-			value=config["llm"]["types"].index(config["llm"]["type"]))
+			values=config.get("llm", {}).get("types"),
+			value=config.get("llm", {}).get("types").index(config.get("llm", {}).get("type")))
 
 		self.type.when_value_edited = self.update_type  # type: ignore
 
 		self.model_combo = self.add(
 			npyscreen.TitleCombo,
 			name="Model:",
-			values=get_models(config["llm"]["type"]),
-			value=get_models(config["llm"]["type"]).index(config["llm"]["model"]) if (config["llm"]["model"]) in get_models(config["llm"]["type"]) else 0)
+			values=get_models(config.get("llm", {}).get("type")),
+			value=get_models(config.get("llm", {}).get("type")).index(config.get("llm", {}).get("model")) if (config.get("llm", {}).get("model")) in get_models(config.get("llm", {}).get("type")) else 0)
 
 		self.cache = self.add(
 			npyscreen.Checkbox,
 			name="Cache:",
-			value=config["llm"].get("cache", False))
+			value=config.get("general", {}).get("cache", False))
 
 		self.throttling = self.add(
 			npyscreen.Checkbox,
 			name="Enable Throttling",
-			value=config["llm"].get("throttling", True))
+			value=config.get("general", {}).get("throttling", True))
 
 		self.throttling.when_value_edited = self.update_throttling  # type: ignore
 
@@ -66,7 +66,7 @@ class ConfigForm(npyscreen.Form):
 			name="Requests per Minute (Quotas):",
 			out_of=300,
 			step=5,
-			value=int(config["llm"].get("rpm", 12)),
+			value=int(config.get("general", {}).get("rpm", 12)),
 			width=60,
 			hidden=not self.throttling.value)
 
@@ -101,12 +101,12 @@ class ConfigForm(npyscreen.Form):
 		self.parentApp.setNextForm(None)
 		config["llm"]["type"] = self.type.values[self.type.value]
 		config["llm"]["model"] = self.model_combo.values[self.model_combo.value]
-		config["llm"]["cache"] = self.cache.value
-		config["llm"]["throttling"] = self.throttling.value
+		config["general"]["cache"] = self.cache.value
+		config["general"]["throttling"] = self.throttling.value
 		try:
-			config["llm"]["rpm"] = max(1, int(self.rpm.value))
+			config["general"]["rpm"] = max(1, int(self.rpm.value))
 		except ValueError:
-			config["llm"]["rpm"] = 12
+			config["general"]["rpm"] = 12
 
 
 class ConfigApp(npyscreen.NPSAppManaged):
@@ -118,4 +118,3 @@ if __name__ == '__main__':
 	ConfigApp().run()
 	save_toml(config)
 	print("Configuration Saved")
-	print(tecla)
