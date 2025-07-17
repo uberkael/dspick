@@ -65,7 +65,7 @@ class ConfigForm(npyscreen.Form):
 			lowest=1,
 			name="Requests per Minute (Quotas):",
 			out_of=300,
-			step=5,
+			step=1,
 			value=int(config.get("general", {}).get("rpm", 12)),
 			width=60,
 			hidden=not self.throttling.value)
