@@ -92,13 +92,6 @@ class ConfigForm(npyscreen.Form):
 		self.model_combo.value = 0 if self.model_combo.value >= len(models) else self.model_combo.value  # type: ignore
 		self.model_combo.display()
 
-	def while_editing(self, widget):
-		if widget == self.throttling:
-			self.rpm.editable = self.throttling.value  # type: ignore
-			if not self.throttling.value:
-				self.rpm.value = 15  # type: ignore
-			self.display()
-
 	def afterEditing(self):
 		self.parentApp.setNextForm(None)
 		config["llm"]["type"] = self.llm_type.values[self.llm_type.value]
@@ -109,16 +102,21 @@ class ConfigForm(npyscreen.Form):
 			config["llm"]["rpm"] = max(1, int(self.rpm.value))
 		except ValueError:
 			config["llm"]["rpm"] = 15
+		self.rpm.hidden = not self.throttling.value  # type: ignore
+		self.display()
+
+	def while_editing(self, widget):
+		if widget == self.throttling:
+			self.rpm.hidden = not self.throttling.value  # type: ignore
+			if not self.throttling.value:
+				self.rpm.value = 15  # type: ignore
+			self.display()
+
 
 
 class ConfigApp(npyscreen.NPSAppManaged):
 	def onStart(self):
 		self.addForm('MAIN', ConfigForm)
-
-	def unhandled_input(self, key):
-		if key in ('q', 'Q', 27):
-			self.setNextForm(None)
-			self.switchFormNow()
 
 
 if __name__ == '__main__':
