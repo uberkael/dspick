@@ -7,8 +7,8 @@ from dspy.teleprompt import LabeledFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
 # from dspy.teleprompt import KNNFewShot  # type: ignore
-from config.config import lm
-from optimizer.dataset import test, train
+from config.config import lm, config
+from dataset import test, train
 from difflib import SequenceMatcher
 from signature import DescriptionCommand
 
@@ -22,7 +22,9 @@ def validate_command(example: dspy.Example, pred, trace=None) -> float:
 	"""Validate the sentiment of a tweet."""
 	a = example.command.lower()  # type: ignore
 	b = pred.command.lower()
-	sleep(5)  # Avoid Quotas
+	# Avoid Quotas
+	if config["llm"]["throttling"]:
+		sleep(60 / config["llm"]["rpm"])
 	return SequenceMatcher(None, a, b).ratio()
 
 
@@ -39,7 +41,7 @@ def get_scores_data(file=SCORES_FILE) -> dict:
 	return {}
 
 
-def save_scores_to_file(dic, file = SCORES_FILE):
+def save_scores_to_file(dic, file=SCORES_FILE):
 	with open(file, "wb") as f:
 		pickle.dump(dic, f)
 
@@ -100,13 +102,12 @@ lfs_predict.save(
 ####################
 # BootstrapFewShot #
 ####################
-# Genera un programa teacher con pocos ejemplos conocidos, este genera más ejemplos y los altos son usados para optimizar el modelo
 print("Bootstrap Few Shot:")
 bsfs_optimizer = BootstrapFewShot(
 	metric=validate_command,
-	max_bootstrapped_demos=4,  # Generated examples
-	max_labeled_demos=16,  # Examples from training data
-	metric_threshold=1  # Minimum quality threshold
+	max_bootstrapped_demos=4,
+	max_labeled_demos=16,
+	metric_threshold=1
 )
 bsfs_predict = bsfs_optimizer.compile(
 	base_predict, trainset=train)

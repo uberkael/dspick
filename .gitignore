@@ -27,3 +27,4 @@ wheels/
 
 # Editor
 .vscode/
+config.toml

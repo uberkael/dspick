@@ -56,20 +56,19 @@ class ConfigForm(npyscreen.Form):
 		self.throttling = self.add(
 			npyscreen.Checkbox,
 			name="Enable Throttling",
-			value=config["llm"].get("throttling", True),
-		)
+			value=config["llm"].get("throttling", True))
+
+		self.throttling.when_value_edited = self.update_throttling  # type: ignore
 
 		self.rpm = self.add(
 			npyscreen.TitleSlider,
 			lowest=1,
 			name="Requests per Minute (Quotas):",
 			out_of=300,
-			# relx=10,
 			step=5,
-			value=int(config["llm"].get("rpm", 15)),
+			value=int(config["llm"].get("rpm", 20)),
 			width=60,
-			hidden=not self.throttling.value
-		)
+			hidden=not self.throttling.value)
 
 		self.add(
 			npyscreen.FixedText,
@@ -92,6 +91,12 @@ class ConfigForm(npyscreen.Form):
 		self.model_combo.value = 0 if self.model_combo.value >= len(models) else self.model_combo.value  # type: ignore
 		self.model_combo.display()
 
+	def update_throttling(self):
+		self.rpm.hidden = not self.throttling.value  # type: ignore
+		if not self.throttling.value:
+			self.rpm.value = 15  # type: ignore
+		self.rpm.display()
+
 	def afterEditing(self):
 		self.parentApp.setNextForm(None)
 		config["llm"]["type"] = self.llm_type.values[self.llm_type.value]
@@ -102,16 +107,6 @@ class ConfigForm(npyscreen.Form):
 			config["llm"]["rpm"] = max(1, int(self.rpm.value))
 		except ValueError:
 			config["llm"]["rpm"] = 15
-		self.rpm.hidden = not self.throttling.value  # type: ignore
-		self.display()
-
-	def while_editing(self, widget):
-		if widget == self.throttling:
-			self.rpm.hidden = not self.throttling.value  # type: ignore
-			if not self.throttling.value:
-				self.rpm.value = 15  # type: ignore
-			self.display()
-
 
 
 class ConfigApp(npyscreen.NPSAppManaged):
