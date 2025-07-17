@@ -34,13 +34,13 @@ class ConfigForm(npyscreen.Form):
 			value="╰────────────────────────╯",
 			editable=False)
 
-		self.llm_type = self.add(
+		self.type = self.add(
 			npyscreen.TitleCombo,
 			name="Type:",
 			values=config["llm"]["types"],
-			value=0)
+			value=config["llm"]["types"].index(config["llm"]["type"]))
 
-		self.llm_type.when_value_edited = self.update_type  # type: ignore
+		self.type.when_value_edited = self.update_type  # type: ignore
 
 		self.model_combo = self.add(
 			npyscreen.TitleCombo,
@@ -66,7 +66,7 @@ class ConfigForm(npyscreen.Form):
 			name="Requests per Minute (Quotas):",
 			out_of=300,
 			step=5,
-			value=int(config["llm"].get("rpm", 20)),
+			value=int(config["llm"].get("rpm", 12)),
 			width=60,
 			hidden=not self.throttling.value)
 
@@ -83,9 +83,9 @@ class ConfigForm(npyscreen.Form):
 			rely=-3)
 
 	def update_type(self):
-		if (idx := self.llm_type.value) < 0:
+		if (idx := self.type.value) < 0:
 			return
-		selected_type = self.llm_type.values[idx]
+		selected_type = self.type.values[idx]
 		models = get_models(selected_type)
 		self.model_combo.values = models  # type: ignore
 		self.model_combo.value = 0 if self.model_combo.value >= len(models) else self.model_combo.value  # type: ignore
@@ -94,19 +94,19 @@ class ConfigForm(npyscreen.Form):
 	def update_throttling(self):
 		self.rpm.hidden = not self.throttling.value  # type: ignore
 		if not self.throttling.value:
-			self.rpm.value = 15  # type: ignore
+			self.rpm.value = 12  # type: ignore
 		self.rpm.display()
 
 	def afterEditing(self):
 		self.parentApp.setNextForm(None)
-		config["llm"]["type"] = self.llm_type.values[self.llm_type.value]
+		config["llm"]["type"] = self.type.values[self.type.value]
 		config["llm"]["model"] = self.model_combo.values[self.model_combo.value]
 		config["llm"]["cache"] = self.cache.value
 		config["llm"]["throttling"] = self.throttling.value
 		try:
 			config["llm"]["rpm"] = max(1, int(self.rpm.value))
 		except ValueError:
-			config["llm"]["rpm"] = 15
+			config["llm"]["rpm"] = 12
 
 
 class ConfigApp(npyscreen.NPSAppManaged):
