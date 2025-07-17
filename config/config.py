@@ -22,7 +22,7 @@ match config["llm"]["type"]:
 	case _:
 		raise ValueError(f"Unsupported LLM type: {config['llm']['type']}")
 
-if not config["llm"]["cache"]:
+if not config["general"]["cache"]:
 	# Disable cache for the LM
 	dspy.configure_cache(
 		enable_disk_cache=False,

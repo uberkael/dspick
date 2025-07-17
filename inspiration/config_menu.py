@@ -60,9 +60,9 @@ def show_main_menu(config: Dict[str, Any]) -> Dict[str, Any]:
 			).ask()
 
 		elif choice == "cache":
-			config["llm"]["cache"] = questionary.confirm(
+			config["general"]["cache"] = questionary.confirm(
 				"¿Habilitar caché para respuestas LLM?",
-				default=config["llm"]["cache"]
+				default=config["general"]["cache"]
 			).ask()
 
 		elif choice == "model":

@@ -23,8 +23,8 @@ def validate_command(example: dspy.Example, pred, trace=None) -> float:
 	a = example.command.lower()  # type: ignore
 	b = pred.command.lower()
 	# Avoid Quotas
-	if config["llm"]["throttling"]:
-		sleep(60 / config["llm"]["rpm"])
+	if config["general"]["throttling"]:
+		sleep(60 / config["general"]["rpm"])
 	return SequenceMatcher(None, a, b).ratio()
 
 
@@ -141,3 +141,13 @@ print("-" * 60)
 # Save
 bsfsrs_predict.save(
 	"optimizer/bsfsrs.pkl", save_program=False)
+
+
+names = ["Base:", "lfs - Labeled Few Shot:", "bsfs - Bootstrap Few Shot:", "bsfsrs - Bootstrap Few Shot With Random Search:"]
+acc = [base_accuracy, lfs_accuracy, bsfs_accuracy, bsfsrs_accuracy]
+print(acc)
+max_acc = max(acc)
+max_index = acc.index(max_acc)
+name = names[max_index]
+print("Resultado:")
+print(name, max_acc)
