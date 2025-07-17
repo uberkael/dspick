@@ -4,12 +4,6 @@ import sys
 from prediction.prediction import predict
 
 
-line = sys.stdin.read().strip().split('|')
-line = [li.strip() for li in line]
-last_command = line[-1]
-last = last_command
-
-
 def selector(options):
 	opts = [f'"{k}") echo {v}' for k, v in options.items()]
 	preview = f"case {{}} in\n{';;'.join(opts)}\nesac"
@@ -24,6 +18,12 @@ def selector(options):
 		return result.stdout.strip()
 	except subprocess.CalledProcessError:
 		return ""  # if cancel Esc
+
+
+line = sys.stdin.read().strip().split('|')
+line = [li.strip() for li in line]
+last_command = line[-1]
+last = last_command
 
 
 if last_command == "":
