@@ -8,6 +8,7 @@ from dspy.teleprompt import LabeledFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
 from rich import print
+from rich.rule import Rule
 # from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm, config
 from signature import DescriptionCommand
@@ -82,7 +83,7 @@ def baseline():
 	scores = get_scores("baseline_scores", base_predict)
 	accuracy = sum(scores) / len(scores)
 	print(f"Accuracy: {accuracy}")
-	print("-" * 60)
+	print(Rule('-'))
 	return name, scores, accuracy
 
 
@@ -100,14 +101,20 @@ def labeled_few_shot():
 	else:
 		print(f"[yellow]Training {name}")
 		optimizer = LabeledFewShot()
-		predict = optimizer.compile(base_predict, trainset=train)
+		while True:
+			try:
+				predict = optimizer.compile(base_predict, trainset=train)
+				break
+			except Exception:
+				print("[red]❌ Error occurred, retrying in 60 seconds...")
+				sleep(62)
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("lfs_scores", predict)
 	accuracy = sum(scores) / len(scores)
 
 	print(f"Accuracy: {accuracy}")
-	print("-" * 60)
+	print(Rule('-'))
 	# Save
 	predict.save(path, save_program=False)
 	return name, scores, accuracy
@@ -132,14 +139,20 @@ def bootstrap_few_shot():
 			max_labeled_demos=16,
 			metric_threshold=1
 		)
-		predict = optimizer.compile(base_predict, trainset=train)
+		while True:
+			try:
+				predict = optimizer.compile(base_predict, trainset=train)
+				break
+			except Exception:
+				print("[red]❌ Error occurred, retrying in 60 seconds...")
+				sleep(62)
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("scores", predict)
 	accuracy = sum(scores) / len(scores)
 
 	print(f"Accuracy: {accuracy}")
-	print("-" * 60)
+	print(Rule('-'))
 	# Save
 	predict.save(path, save_program=False)
 	return name, scores, accuracy
@@ -164,14 +177,21 @@ def bootstrap_few_show_with_random_search():
 			max_bootstrapped_demos=8,
 			max_labeled_demos=20
 		)
-		predict = optimizer.compile(base_predict, trainset=train)
+		while True:
+			try:
+				predict = optimizer.compile(base_predict, trainset=train)
+				break
+			except Exception:
+				print("[red]❌ Error occurred, retrying in 60 seconds...")
+				sleep(62)
+
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("scores", predict)
 	accuracy = sum(scores) / len(scores)
 
 	print(f"Accuracy: {accuracy}")
-	print("-" * 60)
+	print(Rule())
 	# Save
 	predict.save(path, save_program=False)
 	return name, scores, accuracy
