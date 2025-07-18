@@ -1,5 +1,6 @@
 import os
 import pickle
+import random
 from tqdm import tqdm  # type: ignore
 from time import sleep
 from difflib import SequenceMatcher
@@ -84,7 +85,7 @@ def baseline():
 	accuracy = sum(scores) / len(scores)
 	print(f"Accuracy: {accuracy}")
 	print(Rule('-'))
-	return name, scores, accuracy
+	return name, accuracy, base_predict
 
 
 def labeled_few_shot():
@@ -111,7 +112,7 @@ def labeled_few_shot():
 	print(Rule('-'))
 	# Save
 	predict.save(path, save_program=False)
-	return name, scores, accuracy
+	return name, accuracy, predict
 
 
 def bootstrap_few_shot():
@@ -143,7 +144,7 @@ def bootstrap_few_shot():
 	print(Rule('-'))
 	# Save
 	predict.save(path, save_program=False)
-	return name, scores, accuracy
+	return name, accuracy, predict
 
 
 def bootstrap_few_show_with_random_search():
@@ -160,14 +161,15 @@ def bootstrap_few_show_with_random_search():
 	else:
 		print(f"[yellow]Training {name}")
 		optimizer = BootstrapFewShotWithRandomSearch(
-			max_bootstrapped_demos=8,
+			max_bootstrapped_demos=2,
 			max_errors=5,
-			max_labeled_demos=20,
+			max_labeled_demos=4,
 			metric=validate_command,
-			num_candidate_programs=16,
-			num_threads=1
+			num_candidate_programs=4,
+			num_threads=1,
+			max_rounds=1,
 		)
-		predict = optimizer.compile(base_predict, trainset=train)
+		predict = optimizer.compile(base_predict, trainset=random.sample(train, 10))
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("scores", predict)
@@ -177,7 +179,7 @@ def bootstrap_few_show_with_random_search():
 	print(Rule())
 	# Save
 	predict.save(path, save_program=False)
-	return name, scores, accuracy
+	return name, accuracy, predict
 
 
 def optimize():
@@ -187,14 +189,17 @@ def optimize():
 	bsfsrs = bootstrap_few_show_with_random_search()
 
 	optimizers = [base, lfs, bsfs, bsfsrs]
-	accuracy = [o[2] for o in optimizers]
-	names = [o[0] for o in optimizers]
+	accuracy = [o[1] for o in optimizers]
 
 	max_acc = max(accuracy)
 	max_index = accuracy.index(max_acc)
-	name = names[max_index]
+	name = optimizers[max_index][0]
 	print("Resultado:")
 	print(name, max_acc)
+
+	# Save the best model as optimized
+	predict = optimizers[max_index][2]
+	predict.save("optimized.pkl", save_program=False)
 
 
 if __name__ == '__main__':
