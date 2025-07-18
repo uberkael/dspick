@@ -7,6 +7,7 @@ import dspy  # type: ignore
 from dspy.teleprompt import LabeledFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
+from rich import print
 # from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm, config
 from signature import DescriptionCommand
@@ -72,79 +73,122 @@ def get_scores(tipo, pred):
 	return scores
 
 
-def optimize():
+def baseline():
 	##################
 	# Baseline Score #
 	##################
-	print("Base:")
-	baseline_scores = get_scores("baseline_scores", base_predict)
-	base_accuracy = sum(baseline_scores) / len(baseline_scores)
-	print(f"Accuracy: {base_accuracy}")
+	name = "Base:"
+	print(f"[cyan]{name}")
+	scores = get_scores("baseline_scores", base_predict)
+	accuracy = sum(scores) / len(scores)
+	print(f"Accuracy: {accuracy}")
 	print("-" * 60)
+	return name, scores, accuracy
 
+
+def labeled_few_shot():
 	##################
 	# LabeledFewShot #
 	##################
-	print("Labeled Few Shot:")
-	lfs_optimizer = LabeledFewShot()
-	lfs_predict = lfs_optimizer.compile(
-		base_predict, trainset=train)
-	lfs_scores = get_scores("lfs_scores", lfs_predict)
-	lfs_accuracy = sum(lfs_scores) / len(lfs_scores)
+	name = "Labeled Few Shot:"
+	path = "optimizer/lfs.pkl"
+	print(f"[cyan]{name}")
+	if os.path.exists(path):
+		print(f"[green]Loading file {name}")
+		predict = dspy.Predict(DescriptionCommand)
+		predict.load(path)
+	else:
+		print(f"[yellow]Training {name}")
+		optimizer = LabeledFewShot()
+		predict = optimizer.compile(base_predict, trainset=train)
 
-	print(f"Accuracy: {lfs_accuracy}")
+	print("[#ff8800]Calculating Scores")
+	scores = get_scores("lfs_scores", predict)
+	accuracy = sum(scores) / len(scores)
+
+	print(f"Accuracy: {accuracy}")
 	print("-" * 60)
 	# Save
-	lfs_predict.save(
-		"optimizer/lfs.pkl", save_program=False)
+	predict.save(path, save_program=False)
+	return name, scores, accuracy
 
+
+def bootstrap_few_shot():
 	####################
 	# BootstrapFewShot #
 	####################
-	print("Bootstrap Few Shot:")
-	bsfs_optimizer = BootstrapFewShot(
-		metric=validate_command,
-		max_bootstrapped_demos=4,
-		max_labeled_demos=16,
-		metric_threshold=1
-	)
-	bsfs_predict = bsfs_optimizer.compile(
-		base_predict, trainset=train)
-	bsfs_scores = get_scores("bsfs_scores", bsfs_predict)
-	bsfs_accuracy = sum(bsfs_scores) / len(bsfs_scores)
+	name = "Bootstrap Few Shot:"
+	path = "optimizer/bsfs.pkl"
+	print(f"[cyan]{name}")
+	if os.path.exists(path):
+		print(f"[green]Loading file {name}")
+		predict = dspy.Predict(DescriptionCommand)
+		predict.load(path)
+	else:
+		print(f"[yellow]Training {name}")
+		optimizer = BootstrapFewShot(
+			metric=validate_command,
+			max_bootstrapped_demos=4,
+			max_labeled_demos=16,
+			metric_threshold=1
+		)
+		predict = optimizer.compile(base_predict, trainset=train)
 
-	print(f"Accuracy: {bsfs_accuracy}")
+	print("[#ff8800]Calculating Scores")
+	scores = get_scores("scores", predict)
+	accuracy = sum(scores) / len(scores)
+
+	print(f"Accuracy: {accuracy}")
 	print("-" * 60)
 	# Save
-	bsfs_predict.save(
-		"optimizer/bsfs.pkl", save_program=False)
+	predict.save(path, save_program=False)
+	return name, scores, accuracy
 
+
+def bootstrap_few_show_with_random_search():
 	####################################
 	# BootstrapFewShotWithRandomSearch #
 	####################################
-	print("Bootstrap Few Shot With Random Search:")
-	bsfsrs_optimizer = BootstrapFewShotWithRandomSearch(
-		metric=validate_command,
-		num_candidate_programs=16,
-		max_bootstrapped_demos=8,
-		max_labeled_demos=20
-	)
-	bsfsrs_predict = bsfsrs_optimizer.compile(
-		base_predict, trainset=train)
-	bsfsrs_scores = get_scores("bsfsrs_scores", bsfsrs_predict)
-	bsfsrs_accuracy = sum(bsfsrs_scores) / len(bsfsrs_scores)
+	name = "Bootstrap Few Shot With Random Search:"
+	path = "optimizer/bsfsrs.pkl"
+	print(f"[cyan]{name}")
+	if os.path.exists(path):
+		print(f"[green]Loading file {name}")
+		predict = dspy.Predict(DescriptionCommand)
+		predict.load(path)
+	else:
+		print(f"[yellow]Training {name}")
+		optimizer = BootstrapFewShotWithRandomSearch(
+			metric=validate_command,
+			num_candidate_programs=16,
+			max_bootstrapped_demos=8,
+			max_labeled_demos=20
+		)
+		predict = optimizer.compile(base_predict, trainset=train)
 
-	print(f"Accuracy: {bsfsrs_accuracy}")
+	print("[#ff8800]Calculating Scores")
+	scores = get_scores("scores", predict)
+	accuracy = sum(scores) / len(scores)
+
+	print(f"Accuracy: {accuracy}")
 	print("-" * 60)
 	# Save
-	bsfsrs_predict.save(
-		"optimizer/bsfsrs.pkl", save_program=False)
+	predict.save(path, save_program=False)
+	return name, scores, accuracy
 
-	names = ["Base:", "lfs - Labeled Few Shot:", "bsfs - Bootstrap Few Shot:", "bsfsrs - Bootstrap Few Shot With Random Search:"]
-	acc = [base_accuracy, lfs_accuracy, bsfs_accuracy, bsfsrs_accuracy]
-	print(acc)
-	max_acc = max(acc)
-	max_index = acc.index(max_acc)
+
+def optimize():
+	base = baseline()
+	lfs = labeled_few_shot()
+	bsfs = bootstrap_few_shot()
+	bsfsrs = bootstrap_few_show_with_random_search()
+
+	optimizers = [base, lfs, bsfs, bsfsrs]
+	accuracy = [o[2] for o in optimizers]
+	names = [o[0] for o in optimizers]
+
+	max_acc = max(accuracy)
+	max_index = accuracy.index(max_acc)
 	name = names[max_index]
 	print("Resultado:")
 	print(name, max_acc)
