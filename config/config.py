@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 import os
 import dspy  # type: ignore
 from config.file_config import config
-from ratelimit import limits, sleep_and_retry  # type: ignore
 
 
 lm = None
@@ -35,26 +34,3 @@ if not lm:
 
 # Set LM for DSPy
 dspy.configure(lm=lm)
-
-
-# Rate limit if configured
-@sleep_and_retry
-@limits(calls=config["general"]["rpm"], period=60)
-def rate_limited_call(prompt, **kwargs):
-	return dspy.settings.lm(prompt, **kwargs)
-
-
-class RateLimitedLM:
-	def __init__(self, lm):
-		self.lm = lm
-
-	@sleep_and_retry
-	@limits(calls=60, period=60)
-	def __call__(self, prompt, **kwargs):
-		return self.lm(prompt, **kwargs)
-
-	def __getattr__(self, attr):
-		return getattr(self.lm, attr)
-
-
-dspy.settings.configure(lm=RateLimitedLM(dspy.settings.lm))

@@ -160,10 +160,12 @@ def bootstrap_few_show_with_random_search():
 	else:
 		print(f"[yellow]Training {name}")
 		optimizer = BootstrapFewShotWithRandomSearch(
+			max_bootstrapped_demos=8,
+			max_errors=5,
+			max_labeled_demos=20,
 			metric=validate_command,
 			num_candidate_programs=16,
-			max_bootstrapped_demos=8,
-			max_labeled_demos=20
+			num_threads=1
 		)
 		predict = optimizer.compile(base_predict, trainset=train)
 

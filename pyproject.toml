@@ -10,7 +10,6 @@ dependencies = [
     "npyscreen>=4.10.5",
     "prompt-toolkit>=3.0.51",
     "questionary>=2.1.0",
-    "ratelimit>=2.2.1",
     "rich>=14.0.0",
     "tomli-w>=1.2.0",
     "urwid>=3.0.2",
