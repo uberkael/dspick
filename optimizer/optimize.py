@@ -7,9 +7,9 @@ import dspy  # type: ignore
 from dspy.teleprompt import LabeledFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
+# from dspy.teleprompt import KNNFewShot  # type: ignore
 from rich import print
 from rich.rule import Rule
-# from dspy.teleprompt import KNNFewShot  # type: ignore
 from config.config import lm, config
 from signature import DescriptionCommand
 from optimizer.dataset import test, train
@@ -101,13 +101,7 @@ def labeled_few_shot():
 	else:
 		print(f"[yellow]Training {name}")
 		optimizer = LabeledFewShot()
-		while True:
-			try:
-				predict = optimizer.compile(base_predict, trainset=train)
-				break
-			except Exception:
-				print("[red]❌ Error occurred, retrying in 60 seconds...")
-				sleep(62)
+		predict = optimizer.compile(base_predict, trainset=train)
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("lfs_scores", predict)
@@ -139,13 +133,7 @@ def bootstrap_few_shot():
 			max_labeled_demos=16,
 			metric_threshold=1
 		)
-		while True:
-			try:
-				predict = optimizer.compile(base_predict, trainset=train)
-				break
-			except Exception:
-				print("[red]❌ Error occurred, retrying in 60 seconds...")
-				sleep(62)
+		predict = optimizer.compile(base_predict, trainset=train)
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("scores", predict)
@@ -177,14 +165,7 @@ def bootstrap_few_show_with_random_search():
 			max_bootstrapped_demos=8,
 			max_labeled_demos=20
 		)
-		while True:
-			try:
-				predict = optimizer.compile(base_predict, trainset=train)
-				break
-			except Exception:
-				print("[red]❌ Error occurred, retrying in 60 seconds...")
-				sleep(62)
-
+		predict = optimizer.compile(base_predict, trainset=train)
 
 	print("[#ff8800]Calculating Scores")
 	scores = get_scores("scores", predict)
