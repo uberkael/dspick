@@ -3,24 +3,27 @@ import os
 import dspy  # type: ignore
 from config.file_config import config
 
+# Early exit if config is empty
+if not (llm_config := config.get("llm")):
+	raise ValueError("Config LLM section not found. Run 'dspick config'")
+try:
+	llm_type = llm_config["type"]
+	model = llm_config["model"]
+except KeyError as e:
+	raise ValueError(f"Config LLM {e} not found in config.toml. Run 'dspick config'")
 
-lm = None
-
-match config["llm"]["type"]:
+# Initialize LM based on type
+match llm_type:
 	case "ollama":
-		if "ollama" in config:
-			lm = dspy.LM(model=config["llm"]["model"])
-		else:
-			raise ValueError("Ollama model not specified in config.toml")
+		lm = dspy.LM(model=model)
 	case "google":
-		if model := config["llm"]["model"]:
-			load_dotenv()
-			google_key = os.getenv("GOOGLE_API_KEY")
-			lm = dspy.LM(model, api_key=google_key)
-		else:
-			raise ValueError("Google model not specified in config.toml")
+		load_dotenv()
+		google_key = os.getenv("GOOGLE_API_KEY")
+		if not google_key:
+			raise ValueError("GOOGLE_API_KEY not found in environment variables")
+		lm = dspy.LM(model, api_key=google_key)
 	case _:
-		raise ValueError(f"Unsupported LLM type: {config['llm']['type']}")
+		raise ValueError(f"Unsupported LLM type: {llm_type}\nRun 'dspick config'")
 
 if not config["general"]["cache"]:
 	# Disable cache for the LM
@@ -28,9 +31,6 @@ if not config["general"]["cache"]:
 		enable_disk_cache=False,
 		enable_memory_cache=False,
 	)
-
-if not lm:
-	raise ValueError("No language model configured. Please check your config.toml file.")
 
 # Set LM for DSPy
 dspy.configure(lm=lm)
