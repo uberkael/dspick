@@ -8,6 +8,7 @@ import dspy  # type: ignore
 from dspy.teleprompt import LabeledFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShot  # type: ignore
 from dspy.teleprompt import BootstrapFewShotWithRandomSearch  # type: ignore
+from dspy.teleprompt import MIPROv2  # type: ignore
 # from dspy.teleprompt import KNNFewShot  # type: ignore
 from rich import print
 from rich.rule import Rule
@@ -19,6 +20,7 @@ from optimizer.dataset import test, train
 _ = lm
 base_predict = dspy.Predict(DescriptionCommand)
 SCORES_FILE = "optimizer/scores.pkl"
+
 
 ############
 # Validate # MARK: Validate
@@ -176,16 +178,51 @@ def bootstrap_few_show_with_random_search():
 	return name, accuracy, predict
 
 
+#####################
+# Prompt Optimizers # MARK: Prompt
+#####################
+def miprov2():
+	name = "MIPROv2:"
+	path = "optimizer/copro.pkl"
+	print(f"[cyan]{name}")
+	if os.path.exists(path):
+		print(f"[green]Loading file {name}")
+		predict = dspy.Predict(DescriptionCommand)
+		predict.load(path)
+	else:
+		print(f"[yellow]Training {name}")
+		optimizer = MIPROv2(
+			metric=validate_command,
+			prompt_model= lm,
+			num_threads=1
+		)
+		predict = optimizer.compile(base_predict, trainset=train, valset=test)
+
+	print("[#ff8800]Calculating Scores")
+	scores = get_scores("copro_scores", predict)
+	accuracy = sum(scores) / len(scores)
+
+	print(f"Accuracy: {accuracy}")
+	print(Rule('-'))
+	# Save
+	predict.save(path, save_program=False)
+	return name, accuracy, predict
+
+
 ########
 # Main # MARK: Main
 ########
 def optimize():
+	# Few Shots
 	base = baseline()
 	lfs = labeled_few_shot()
 	bsfs = bootstrap_few_shot()
 	bsfsrs = bootstrap_few_show_with_random_search()
 
-	optimizers = [base, lfs, bsfs, bsfsrs]
+	# Prompt
+	miprov = miprov2()
+
+	optimizers = [base, lfs, bsfs, bsfsrs, miprov]
 	accuracy = [o[1] for o in optimizers]
 
 	max_acc = max(accuracy)

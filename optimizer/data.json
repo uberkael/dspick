@@ -3,242 +3,247 @@
     {
       "context": "",
       "command": "uname -r",
-      "description": "Shows the kernel version of the system"
+      "description": "shows the kernel version of the system"
     },
     {
       "context": "ls -l",
       "command": "awk '{print $1}'",
-      "description": "Displays file permissions"
+      "description": "displays file permissions"
     },
     {
       "context": "ls | grep '^d'",
       "command": "wc -l",
-      "description": "Counts number of directories"
+      "description": "counts number of directories"
     },
     {
       "context": "ps aux | grep firefox | head -1",
       "command": "awk '{print $2}'",
-      "description": "Extracts the PID"
+      "description": "extracts the PID"
     },
     {
       "context": "",
       "command": "ss -s",
-      "description": "Displays detailed socket statistics"
+      "description": "displays detailed socket statistics"
     },
     {
       "context": "",
       "command": "ncdu",
-      "description": "Interactive disk usage analyzer"
+      "description": "interactive disk usage analyzer"
     },
     {
       "context": "du -sh *",
       "command": "sort -h",
-      "description": "Sorts directories by size"
+      "description": "sorts directories by size"
     },
     {
       "context": "",
       "command": "df",
-      "description": "Shows disk space usage information"
+      "description": "shows disk space usage information"
     },
     {
       "context": "wc -l *.py | awk '{print $1}'",
       "command": "tr '\n' '+'",
-      "description": "Replaces line breaks with plus signs"
+      "description": "replaces line breaks with plus signs"
+    },
+    {
+      "context": "wc -l *.py | awk '{print $1}'",
+      "command": "paste -sd+",
+      "description": "join all with +"
     },
     {
       "context": "",
       "command": "tcpdump -i eth0 port 80",
-      "description": "Captures HTTP traffic on eth0 interface"
+      "description": "captures HTTP traffic on eth0 interface"
     },
     {
       "context": "",
       "command": "openssl rand -base64 32",
-      "description": "Generates a secure random string in base64"
+      "description": "generates a secure random string in base64"
     },
     {
       "context": "",
       "command": "gpg -c",
-      "description": "Encrypts a file using GPG"
+      "description": "encrypts a file using GPG"
     },
     {
       "context": "ps aux",
       "command": "grep firefox",
-      "description": "Filters lines containing 'firefox'"
+      "description": "filters lines containing 'firefox'"
     },
     {
       "context": "",
       "command": "find / -type f -size +100M",
-      "description": "Searches for files larger than 100MB"
+      "description": "searches for files larger than 100MB"
     },
     {
       "context": "",
       "command": "timeout 10",
-      "description": "Runs a command with a 10-second timeout"
+      "description": "runs a command with a 10-second timeout"
     },
     {
       "context": "ps aux | grep firefox",
       "command": "head -1",
-      "description": "Gets the first result"
+      "description": "gets the first result"
     },
     {
       "context": "df -h",
       "command": "grep '/$'",
-      "description": "Filters root partition"
+      "description": "filters root partition"
     },
     {
       "context": "",
       "command": "crontab -l",
-      "description": "Lists scheduled tasks for the current user"
+      "description": "lists scheduled tasks for the current user"
     },
     {
       "context": "ls -l",
       "command": "awk '{print $9}'",
-      "description": "Displays the filename"
+      "description": "displays the filename"
     },
     {
       "context": "echo '12 23 1\n12 2 3' | tr ' ' '+'",
       "command": "bc",
-      "description": "Sums all numbers row-wise"
+      "description": "sums all numbers row-wise"
     },
     {
       "context": "",
       "command": "lsof -i :8080",
-      "description": "Lists processes using port 8080"
+      "description": "lists processes using port 8080"
     },
     {
       "context": "",
       "command": "tail -n 3",
-      "description": "Displays the last 3 lines of a file"
+      "description": "displays the last 3 lines of a file"
     },
     {
       "context": "",
       "command": "free -h",
-      "description": "Displays free memory in human-readable format"
+      "description": "displays free memory in human-readable format"
     },
     {
       "context": "ps aux | grep firefox | head -1 | awk '{print $2}'",
       "command": "kill",
-      "description": "Terminates the selected process"
+      "description": "terminates the selected process"
     },
     {
       "context": "",
       "command": "netstat -tulnp",
-      "description": "Shows listening ports and associated processes"
+      "description": "shows listening ports and associated processes"
     },
     {
       "context": "find /etc -type f",
       "command": "xargs grep 'PermitRootLogin'",
-      "description": "Searches SSH config for root login directive"
+      "description": "searches SSH config for root login directive"
     },
     {
       "context": "",
       "command": "grep -v p1",
-      "description": "Searches for lines NOT containing 'p1'"
+      "description": "searches for lines NOT containing 'p1'"
     },
     {
       "context": "",
       "command": "ps aux",
-      "description": "Displays detailed information of all running processes"
+      "description": "displays detailed information of all running processes"
     },
     {
       "context": "",
       "command": "watch -n 1",
-      "description": "Monitors a command, updating every second"
+      "description": "monitors a command, updating every second"
     },
     {
       "context": "",
       "command": "ls -vld .?*",
-      "description": "Lists all hidden files showing their permissions"
+      "description": "lists all hidden files showing their permissions"
     },
     {
       "context": "wc -l *.py",
       "command": "awk '{print $1}'",
-      "description": "Extracts line counts"
+      "description": "extracts line counts"
     },
     {
       "context": "df -h | grep '/$'",
       "command": "awk '{print $5}'",
-      "description": "Displays disk usage percentage of root"
+      "description": "displays disk usage percentage of root"
     },
     {
       "context": "",
       "command": "lsblk -o NAME,LABEL",
-      "description": "Lists block devices showing name and label"
+      "description": "lists block devices showing name and label"
     },
     {
       "context": "",
       "command": "ip -s -h link",
-      "description": "Shows network interface statistics in human-readable format"
+      "description": "shows network interface statistics in human-readable format"
     },
     {
       "context": "",
       "command": "htop",
-      "description": "Interactive process viewer (enhanced top)"
+      "description": "interactive process viewer (enhanced top)"
     },
     {
       "context": "wc -l *.py | awk '{print $1}' | tr '\n' '+'",
       "command": "sed 's/+$/\n/'",
-      "description": "Removes last '+' from the list"
+      "description": "removes last '+' from the list"
     },
     {
       "context": "",
       "command": "awk '{print $2}'",
-      "description": "Prints the second column of each input line"
+      "description": "prints the second column of each input line"
     },
     {
       "context": "",
       "command": "tar -czvf",
-      "description": "Creates a compressed tar.gz archive of a directory"
+      "description": "creates a compressed tar.gz archive of a directory"
     },
     {
       "context": "",
       "command": "lshw -short",
-      "description": "Lists system hardware in a compact format"
+      "description": "lists system hardware in a compact format"
     },
     {
       "context": "ls -1 | grep '.log$'",
       "command": "xargs tail -n 1",
-      "description": "Shows last line of each log file"
+      "description": "shows last line of each log file"
     },
     {
       "context": "",
       "command": "rsync -avz --progress",
-      "description": "Syncs directories while showing progress"
+      "description": "syncs directories while showing progress"
     },
     {
       "context": "",
       "command": "systemctl list-units --type=service",
-      "description": "Lists all system services"
+      "description": "lists all system services"
     },
     {
       "context": "ps aux | grep nginx",
       "command": "awk '{print $11}'",
-      "description": "Displays command path for nginx"
+      "description": "displays command path for nginx"
     },
     {
       "context": "du -sh * | sort -h",
       "command": "tail -n 5",
-      "description": "Displays 5 largest items"
+      "description": "displays 5 largest items"
     },
     {
       "context": "ip -s -h link",
       "command": "grep -A 1 'eth0'",
-      "description": "Shows stats for eth0 interface"
+      "description": "shows stats for eth0 interface"
     },
     {
       "context": "",
       "command": "mtr",
-      "description": "Combines ping and traceroute in one tool"
+      "description": "combines ping and traceroute in one tool"
     },
     {
       "context": "",
       "command": "ssh -i",
-      "description": "SSH connection using a specific key"
+      "description": "ssh connection using a specific key"
     },
     {
       "context": "",
       "command": "journalctl -xe",
-      "description": "Displays system logs with extended details"
+      "description": "displays system logs with extended details"
     }
   ]
 }
