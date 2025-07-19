@@ -17,10 +17,12 @@ from optimizer.dataset import test, train
 
 
 _ = lm
-
+base_predict = dspy.Predict(DescriptionCommand)
 SCORES_FILE = "optimizer/scores.pkl"
 
-
+############
+# Validate # MARK: Validate
+############
 def validate_command(example: dspy.Example, pred, trace=None) -> float:
 	"""Validate the sentiment of a tweet."""
 	a = example.command.lower()  # type: ignore
@@ -31,11 +33,8 @@ def validate_command(example: dspy.Example, pred, trace=None) -> float:
 	return SequenceMatcher(None, a, b).ratio()
 
 
-base_predict = dspy.Predict(DescriptionCommand)
-
-
 ###############
-# File Scores #
+# File Scores # MARK: File
 ###############
 def get_scores_data(file=SCORES_FILE) -> dict:
 	if os.path.exists(file):
@@ -53,7 +52,7 @@ stored_scores = get_scores_data()
 
 
 #########
-# Utils #
+# Utils # MARK: Utils
 #########
 def calculate(predictor, validate):
 	scores = []
@@ -76,10 +75,10 @@ def get_scores(tipo, pred):
 	return scores
 
 
+##################
+# Baseline Score # MARK: Baseline
+##################
 def baseline():
-	##################
-	# Baseline Score #
-	##################
 	name = "Base:"
 	print(f"[cyan]{name}")
 	scores = get_scores("baseline_scores", base_predict)
@@ -89,10 +88,10 @@ def baseline():
 	return name, accuracy, base_predict
 
 
+#######################
+# Few Shot Optimizers # MARK: Few Shot
+#######################
 def labeled_few_shot():
-	##################
-	# LabeledFewShot #
-	##################
 	name = "Labeled Few Shot:"
 	path = "optimizer/lfs.pkl"
 	print(f"[cyan]{name}")
@@ -117,9 +116,6 @@ def labeled_few_shot():
 
 
 def bootstrap_few_shot():
-	####################
-	# BootstrapFewShot #
-	####################
 	name = "Bootstrap Few Shot:"
 	path = "optimizer/bsfs.pkl"
 	print(f"[cyan]{name}")
@@ -149,9 +145,6 @@ def bootstrap_few_shot():
 
 
 def bootstrap_few_show_with_random_search():
-	####################################
-	# BootstrapFewShotWithRandomSearch #
-	####################################
 	name = "Bootstrap Few Shot With Random Search:"
 	path = "optimizer/bsfsrs.pkl"
 	print(f"[cyan]{name}")
@@ -183,6 +176,9 @@ def bootstrap_few_show_with_random_search():
 	return name, accuracy, predict
 
 
+########
+# Main # MARK: Main
+########
 def optimize():
 	base = baseline()
 	lfs = labeled_few_shot()
