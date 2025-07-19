@@ -1,0 +1,17 @@
+#!/bin/bash
+
+case "$1" in
+	optimize)
+		uv run optimizer/optimize.py
+		;;
+	reset)
+		uv run optimizer/reset.py
+		;;
+	config)
+		uv run config/menu.py
+		;;
+	*)
+		echo "Uso: dspi <optimize | reset | config>"
+		exit 1
+		;;
+esac
