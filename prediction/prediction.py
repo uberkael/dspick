@@ -9,14 +9,15 @@ _ = lm
 
 
 def predict(
-	q: str = "list all files and hidden files in the current directory",
+	context: str,
+	description: str = "list all files and hidden files in the current directory",
 	path = "optimized.pkl") -> DescriptionCommand:
 	"""Predict the command to execute based on the description."""
-	d = f"in a operating system: {platform.system()}, what is the command and arguments to do: {q}"
+	d = f"{description}, OS: {platform.system()}"
 	if os.path.exists(path):
 		p = dspy.Predict(DescriptionCommand)
 		p.load(path)
-		return p(description=d)
+		return p(context=context, description=d)
 	else:
 		p = dspy.Predict(DescriptionCommand)
-		return p(description=d)
+		return p(context=context, description=d)

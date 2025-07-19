@@ -16,9 +16,10 @@ def reset():
 		"bsfs.pkl",
 		"bsfsrs.pkl",
 		"lfs.pkl",
-		"scores.pkl"]
+		"scores.pkl",
+		"../optimized.pkl"]
 	print(f"Files:\n\n{'\n'.join(files)}")
-	print("\nAre you sure you want to delete the files? (y/n): ")
+	print("\nAre you sure you want to delete the files? (y/N): ")
 	answer = input()
 	if answer.strip().lower() == "y":
 		print("Files Deleted")

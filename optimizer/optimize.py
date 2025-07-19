@@ -49,7 +49,7 @@ def save_scores_to_file(dic, file=SCORES_FILE):
 		pickle.dump(dic, f)
 
 
-file_scores = get_scores_data()
+stored_scores = get_scores_data()
 
 
 #########
@@ -66,12 +66,13 @@ def calculate(predictor, validate):
 
 
 def get_scores(tipo, pred):
-	scores = file_scores.get(tipo, [])
+	scores = stored_scores.get(tipo, [])
 	if scores:
 		return scores
 	scores = calculate(pred, validate_command)
-	file_scores[tipo] = scores
-	save_scores_to_file(file_scores)
+	stored_scores[tipo] = scores
+	if scores:
+		save_scores_to_file(stored_scores)
 	return scores
 
 

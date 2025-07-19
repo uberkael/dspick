@@ -22,6 +22,7 @@ def selector(options):
 
 line = sys.stdin.read().strip().split('|')
 line = [li.strip() for li in line]
+context = ' | '.join(line[:-1])
 last_command = line[-1]
 last = last_command
 
@@ -29,8 +30,7 @@ last = last_command
 if last_command == "":
 	last = last_command
 else:
-	last = predict(last_command).command
+	last = predict(context=context, description=last_command).command
 
-final_prompt: list[str] = line[:-1] + [last]
-final: str = ' | '.join(final_prompt)
-print(final)
+result: str = f"{context} | {last}"
+print(result)

@@ -1,392 +1,244 @@
 {
   "data": [
     {
-      "command": "awk '{print $2}'",
-      "description": "Prints the second column of each input line"
-    },
-    {
-      "command": "ls -vld .?*",
-      "description": "Lists all hidden files showing their permissions"
-    },
-    {
-      "command": "tail -n 3",
-      "description": "Displays the last 3 lines of a file"
-    },
-    {
+      "context": "",
       "command": "uname -r",
       "description": "Shows the kernel version of the system"
     },
     {
-      "command": "lsblk -o NAME,LABEL",
-      "description": "Lists block devices showing name and label"
+      "context": "ls -l",
+      "command": "awk '{print $1}'",
+      "description": "Displays file permissions"
     },
     {
-      "command": "grep -v p1",
-      "description": "Searches for lines NOT containing 'p1'"
+      "context": "ls | grep '^d'",
+      "command": "wc -l",
+      "description": "Counts number of directories"
     },
     {
-      "command": "free -h",
-      "description": "Displays free memory in human-readable format"
+      "context": "ps aux | grep firefox | head -1",
+      "command": "awk '{print $2}'",
+      "description": "Extracts the PID"
     },
     {
-      "command": "df",
-      "description": "Shows disk space usage information"
-    },
-    {
-      "command": "ps aux",
-      "description": "Displays detailed information of all running processes"
-    },
-    {
-      "command": "find / -type f -size +100M",
-      "description": "Searches for files larger than 100MB in the entire system"
-    },
-    {
-      "command": "strace -f -e trace=open,read,write,close command",
-      "description": "Traces system calls of a specific command"
-    },
-    {
-      "command": "lsof -i :8080",
-      "description": "Lists processes using port 8080"
-    },
-    {
-      "command": "ip -s -h link",
-      "description": "Shows network interface statistics in human-readable format"
-    },
-    {
-      "command": "journalctl -xe",
-      "description": "Displays system logs with extended details"
-    },
-    {
-      "command": "tar -czvf",
-      "description": "Creates a compressed tar.gz archive of a directory"
-    },
-    {
-      "command": "rsync -avz --progress",
-      "description": "Syncs directories while showing progress"
-    },
-    {
-      "command": "ssh -i",
-      "description": "SSH connection using a specific key"
-    },
-    {
-      "command": "gpg -c",
-      "description": "Encrypts a file using GPG"
-    },
-    {
-      "command": "openssl rand -base64 32",
-      "description": "Generates a secure random string in base64"
-    },
-    {
-      "command": "iptables -L -n -v",
-      "description": "Lists iptables rules with detailed information"
-    },
-    {
-      "command": "netstat -tulnp",
-      "description": "Shows listening ports and associated processes"
-    },
-    {
+      "context": "",
       "command": "ss -s",
       "description": "Displays detailed socket statistics"
     },
     {
-      "command": "tcpdump -i eth0 port 80",
-      "description": "Captures HTTP traffic on eth0 interface"
-    },
-    {
-      "command": "iftop -n",
-      "description": "Real-time bandwidth monitoring tool"
-    },
-    {
-      "command": "htop",
-      "description": "Interactive process viewer (enhanced top)"
-    },
-    {
-      "command": "iotop -o",
-      "description": "Shows processes with I/O activity"
-    },
-    {
+      "context": "",
       "command": "ncdu",
       "description": "Interactive disk usage analyzer"
     },
     {
-      "command": "mtr",
-      "description": "Combines ping and traceroute in one tool"
+      "context": "du -sh *",
+      "command": "sort -h",
+      "description": "Sorts directories by size"
     },
     {
+      "context": "",
+      "command": "df",
+      "description": "Shows disk space usage information"
+    },
+    {
+      "context": "wc -l *.py | awk '{print $1}'",
+      "command": "tr '\n' '+'",
+      "description": "Replaces line breaks with plus signs"
+    },
+    {
+      "context": "",
+      "command": "tcpdump -i eth0 port 80",
+      "description": "Captures HTTP traffic on eth0 interface"
+    },
+    {
+      "context": "",
+      "command": "openssl rand -base64 32",
+      "description": "Generates a secure random string in base64"
+    },
+    {
+      "context": "",
+      "command": "gpg -c",
+      "description": "Encrypts a file using GPG"
+    },
+    {
+      "context": "ps aux",
+      "command": "grep firefox",
+      "description": "Filters lines containing 'firefox'"
+    },
+    {
+      "context": "",
+      "command": "find / -type f -size +100M",
+      "description": "Searches for files larger than 100MB"
+    },
+    {
+      "context": "",
       "command": "timeout 10",
       "description": "Runs a command with a 10-second timeout"
     },
     {
-      "command": "watch -n 1",
-      "description": "Monitors disk space, updating every second"
+      "context": "ps aux | grep firefox",
+      "command": "head -1",
+      "description": "Gets the first result"
     },
     {
+      "context": "df -h",
+      "command": "grep '/$'",
+      "description": "Filters root partition"
+    },
+    {
+      "context": "",
       "command": "crontab -l",
       "description": "Lists scheduled tasks for the current user"
     },
     {
-      "command": "systemctl list-units --type=service",
-      "description": "Lists all system services"
+      "context": "ls -l",
+      "command": "awk '{print $9}'",
+      "description": "Displays the filename"
     },
     {
-      "command": "dmidecode -t memory",
-      "description": "Shows detailed RAM information"
+      "context": "echo '12 23 1\n12 2 3' | tr ' ' '+'",
+      "command": "bc",
+      "description": "Sums all numbers row-wise"
     },
     {
+      "context": "",
+      "command": "lsof -i :8080",
+      "description": "Lists processes using port 8080"
+    },
+    {
+      "context": "",
+      "command": "tail -n 3",
+      "description": "Displays the last 3 lines of a file"
+    },
+    {
+      "context": "",
+      "command": "free -h",
+      "description": "Displays free memory in human-readable format"
+    },
+    {
+      "context": "ps aux | grep firefox | head -1 | awk '{print $2}'",
+      "command": "kill",
+      "description": "Terminates the selected process"
+    },
+    {
+      "context": "",
+      "command": "netstat -tulnp",
+      "description": "Shows listening ports and associated processes"
+    },
+    {
+      "context": "find /etc -type f",
+      "command": "xargs grep 'PermitRootLogin'",
+      "description": "Searches SSH config for root login directive"
+    },
+    {
+      "context": "",
+      "command": "grep -v p1",
+      "description": "Searches for lines NOT containing 'p1'"
+    },
+    {
+      "context": "",
+      "command": "ps aux",
+      "description": "Displays detailed information of all running processes"
+    },
+    {
+      "context": "",
+      "command": "watch -n 1",
+      "description": "Monitors a command, updating every second"
+    },
+    {
+      "context": "",
+      "command": "ls -vld .?*",
+      "description": "Lists all hidden files showing their permissions"
+    },
+    {
+      "context": "wc -l *.py",
+      "command": "awk '{print $1}'",
+      "description": "Extracts line counts"
+    },
+    {
+      "context": "df -h | grep '/$'",
+      "command": "awk '{print $5}'",
+      "description": "Displays disk usage percentage of root"
+    },
+    {
+      "context": "",
+      "command": "lsblk -o NAME,LABEL",
+      "description": "Lists block devices showing name and label"
+    },
+    {
+      "context": "",
+      "command": "ip -s -h link",
+      "description": "Shows network interface statistics in human-readable format"
+    },
+    {
+      "context": "",
+      "command": "htop",
+      "description": "Interactive process viewer (enhanced top)"
+    },
+    {
+      "context": "wc -l *.py | awk '{print $1}' | tr '\n' '+'",
+      "command": "sed 's/+$/\n/'",
+      "description": "Removes last '+' from the list"
+    },
+    {
+      "context": "",
+      "command": "awk '{print $2}'",
+      "description": "Prints the second column of each input line"
+    },
+    {
+      "context": "",
+      "command": "tar -czvf",
+      "description": "Creates a compressed tar.gz archive of a directory"
+    },
+    {
+      "context": "",
       "command": "lshw -short",
       "description": "Lists system hardware in a compact format"
     },
     {
-      "command": "smartctl -a",
-      "description": "Displays SMART data for a hard drive"
+      "context": "ls -1 | grep '.log$'",
+      "command": "xargs tail -n 1",
+      "description": "Shows last line of each log file"
     },
     {
-      "command": "comm -3",
-      "description": "Compares two files, showing unique lines"
+      "context": "",
+      "command": "rsync -avz --progress",
+      "description": "Syncs directories while showing progress"
     },
     {
-      "command": "diff -u",
-      "description": "Shows differences between files in unified format"
+      "context": "",
+      "command": "systemctl list-units --type=service",
+      "description": "Lists all system services"
     },
     {
-      "command": "sort -u ",
-      "description": "Sorts a file and removes duplicates"
+      "context": "ps aux | grep nginx",
+      "command": "awk '{print $11}'",
+      "description": "Displays command path for nginx"
     },
     {
-      "command": "uniq -c ",
-      "description": "Counts occurrences of duplicate lines"
+      "context": "du -sh * | sort -h",
+      "command": "tail -n 5",
+      "description": "Displays 5 largest items"
     },
     {
-      "command": "cut -d: -f1",
-      "description": "Extracts the first colon-delimited"
+      "context": "ip -s -h link",
+      "command": "grep -A 1 'eth0'",
+      "description": "Shows stats for eth0 interface"
     },
     {
-      "command": "join",
-      "description": "Joins two files on common fields"
+      "context": "",
+      "command": "mtr",
+      "description": "Combines ping and traceroute in one tool"
     },
     {
-      "command": "paste",
-      "description": "Merges lines from two files side by side"
+      "context": "",
+      "command": "ssh -i",
+      "description": "SSH connection using a specific key"
     },
     {
-      "command": "split -b 100M",
-      "description": "Splits a large file into 100MB chunks"
-    },
-    {
-      "command": "xargs -n1 <",
-      "description": "Executes a command for each line in a file"
-    },
-    {
-      "command": "parallel -j4 command ::: arg1 arg2 arg3",
-      "description": "Runs commands in parallel with 4 simultaneous jobs"
-    },
-    {
-      "command": "screen -ls",
-      "description": "Lists active screen sessions"
-    },
-    {
-      "command": "tmux list-sessions",
-      "description": "Lists active tmux sessions"
-    },
-    {
-      "command": "wget --mirror --convert-links --adjust-extension --page-requisites --no-parent",
-      "description": "Downloads a complete website for offline viewing"
-    },
-    {
-      "command": "git log --graph --oneline --all",
-      "description": "Shows Git history in a compact graph format"
-    },
-    {
-      "command": "docker stats",
-      "description": "Displays real-time Docker container statistics"
-    },
-    {
-      "command": "kubectl get pods -A -o wide",
-      "description": "Lists all pods across all namespaces with details"
-    },
-    {
-      "command": "ansible all -m ping",
-      "description": "Tests connectivity with all hosts in inventory"
-    },
-    {
-      "command": "terraform plan -out=tfplan",
-      "description": "Generates a Terraform execution plan"
-    },
-    {
-      "command": "packer build",
-      "description": "Builds a machine image using Packer"
-    },
-    {
-      "command": "vagrant ssh-config",
-      "description": "Displays SSH configuration for Vagrant machines"
-    },
-    {
-      "command": "jq '.key'",
-      "description": "Extracts a specific value from a JSON file"
-    },
-    {
-      "command": "yq eval '.key'",
-      "description": "Extracts a specific value from a YAML file"
-    },
-    {
-      "command": "csvcut -c 1,3",
-      "description": "Extracts specific columns from a CSV file"
-    },
-    {
-      "command": "xmlstarlet sel -t -v",
-      "description": "Extracts data from XML using XPath"
-    },
-    {
-      "command": "sqlite3 database.db '.schema'",
-      "description": "Shows the schema of a SQLite database.db"
-    },
-    {
-      "command": "mysql -e 'SHOW PROCESSLIST'",
-      "description": "Shows active processes in MySQL"
-    },
-    {
-      "command": "psql -c '\\dt'",
-      "description": "Lists tables in PostgreSQL"
-    },
-    {
-      "command": "mongo --eval 'db.stats()'",
-      "description": "Executes a JavaScript command in MongoDB"
-    },
-    {
-      "command": "redis-cli INFO",
-      "description": "Displays Redis information and statistics"
-    },
-    {
-      "command": "ldapsearch -x -b 'dc=example,dc=com' '(objectclass=*)'",
-      "description": "Searches an LDAP directory"
-    },
-    {
-      "command": "nmap -sV -O",
-      "description": "Scans a host, detecting services and OS"
-    },
-    {
-      "command": "wireshark -k -i eth0",
-      "description": "Starts packet capture on eth0 interface"
-    },
-    {
-      "command": "tcpflow -c -i eth0 port 80",
-      "description": "Captures and reconstructs TCP flows on port 80"
-    },
-    {
-      "command": "hashcat -m 0 -a 0",
-      "description": "Performs a brute-force attack on hashes"
-    },
-    {
-      "command": "openssl s_client -connect ",
-      "description": "Debugs SSL/TLS connection to a server"
-    },
-    {
-      "command": "certbot renew --dry-run",
-      "description": "Tests Let's Encrypt certificate renewal"
-    },
-    {
-      "command": "fail2ban-client status sshd",
-      "description": "Shows status of the sshd jail in Fail2Ban"
-    },
-    {
-      "command": "auditctl -l",
-      "description": "Lists active auditd rules"
-    },
-    {
-      "command": "selinuxenabled && echo Enabled || echo Disabled",
-      "description": "Checks if SELinux is enabled"
-    },
-    {
-      "command": "getenforce",
-      "description": "Shows SELinux enforcement mode"
-    },
-    {
-      "command": "sestatus",
-      "description": "Displays detailed SELinux status"
-    },
-    {
-      "command": "apparmor_status",
-      "description": "Shows AppArmor status"
-    },
-    {
-      "command": "chroot",
-      "description": "Changes root to a specified directory"
-    },
-    {
-      "command": "mount --bind",
-      "description": "Mounts a directory to another location"
-    },
-    {
-      "command": "lvmdiskscan",
-      "description": "Scans devices for LVM usage"
-    },
-    {
-      "command": "vgdisplay",
-      "description": "Shows volume group information in LVM"
-    },
-    {
-      "command": "zpool status",
-      "description": "Displays ZFS pool status"
-    },
-    {
-      "command": "zfs list",
-      "description": "Lists ZFS filesystems"
-    },
-    {
-      "command": "btrfs filesystem show",
-      "description": "Displays Btrfs filesystems"
-    },
-    {
-      "command": "parted -l",
-      "description": "Lists disk partitions with detailed info"
-    },
-    {
-      "command": "fsck -y",
-      "description": "Automatically repairs a filesystem"
-    },
-    {
-      "command": "ntfsfix",
-      "description": "Fixes common NTFS issues"
-    },
-    {
-      "command": "strings",
-      "description": "Extracts text strings from a binary"
-    },
-    {
-      "command": "objdump -d",
-      "description": "Disassembles a binary showing assembly code"
-    },
-    {
-      "command": "strace -c",
-      "description": "Shows system call statistics for a command"
-    },
-    {
-      "command": "ltrace -c",
-      "description": "Shows library call statistics for a command"
-    },
-    {
-      "command": "gdb -q",
-      "description": "Starts GDB debugger with a binary"
-    },
-    {
-      "command": "perf stat",
-      "description": "Shows performance statistics for a command"
-    },
-    {
-      "command": "valgrind --leak-check=yes",
-      "description": "Detects memory leaks in a program"
-    },
-    {
-      "command": "readelf -a",
-      "description": "Shows detailed ELF binary information"
-    },
-    {
-      "command": "nm",
-      "description": "Lists symbols in a binary"
-    },
-    {
-      "command": "ldd",
-      "description": "Lists shared libraries required by a binary"
+      "context": "",
+      "command": "journalctl -xe",
+      "description": "Displays system logs with extended details"
     }
   ]
 }
