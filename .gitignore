@@ -5,6 +5,7 @@
 .Trashes
 Desktop.ini
 Thumbs.db
+*.txt
 
 # Environment Variables
 .env

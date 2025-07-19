@@ -2,21 +2,12 @@
 import sys
 from prediction.prediction import predict
 
-
 line = [li.strip() for li in sys.stdin.read().split('|')]
-*prev_commands, last_command = line
+*prev, last = line
+context = ' | '.join(prev) if prev else ""
 
-if last_command == "":
-	if prev_commands:
-		context = ' | '.join(prev_commands)
-		print(f"{context} | ")
-	else:
-		print()
+if last == "":
+	print(f"{context} | " if context else "")
 else:
-	if prev_commands:
-		context = ' | '.join(prev_commands)
-		result = predict(context=context, description=last_command).command
-		print(f"{context} | {result}")
-	else:
-		result = predict(context="", description=last_command).command
-		print(result)
+	result = predict(context=context, description=last).command
+	print(f"{context} | {result}" if context else result)
