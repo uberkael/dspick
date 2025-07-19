@@ -1,7 +1,7 @@
 [project]
 name = "dspick"
 version = "0.1.0"
-description = " Like Navi, but with DSPy under the hood—ask, get a CLI command, done. "
+description = "Like Navi, but with DSPy under the hood—ask, get a CLI command, done. "
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
