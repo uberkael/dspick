@@ -213,27 +213,27 @@ def miprov2():
 # Main # MARK: Main
 ########
 def optimize():
-	# Few Shots
-	base = baseline()
-	lfs = labeled_few_shot()
-	bsfs = bootstrap_few_shot()
-	bsfsrs = bootstrap_few_show_with_random_search()
+	final = baseline()
+	strategies = [
+		# Few Shots
+		labeled_few_shot,
+		bootstrap_few_shot,
+		bootstrap_few_show_with_random_search,
+		# Prompt
+		miprov2
+	]
+	for strategy in strategies:
+		try:
+			current = strategy()
+			if current[1] > final[1]:
+				final = current
+		except Exception:
+			continue
 
-	# Prompt
-	miprov = miprov2()
-
-	optimizers = [base, lfs, bsfs, bsfsrs, miprov]
-	accuracy = [o[1] for o in optimizers]
-
-	max_acc = max(accuracy)
-	max_index = accuracy.index(max_acc)
-	name = optimizers[max_index][0]
-	print("Resultado:")
-	print(name, max_acc)
-
-	# Save the best model as optimized
-	predict = optimizers[max_index][2]
+	name, acc, predict = final
 	predict.save("optimized.pkl", save_program=False)
+	print(name, acc)
+	print("Save <optimized.pkl>")
 
 
 if __name__ == '__main__':
