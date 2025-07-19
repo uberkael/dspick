@@ -114,7 +114,11 @@ class ConfigApp(npyscreen.NPSAppManaged):
 		self.addForm('MAIN', ConfigForm)
 
 
-if __name__ == '__main__':
+def run():
 	ConfigApp().run()
 	save_toml(config)
 	print("Configuration Saved")
+
+
+if __name__ == '__main__':
+	run()
