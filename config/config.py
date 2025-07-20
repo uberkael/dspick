@@ -12,24 +12,30 @@ try:
 except KeyError as e:
 	raise ValueError(f"Config LLM {e} not found in config.toml. Run 'dspick config'")
 
+
+def initialize_lm(env_key, model):
+	load_dotenv()
+	key = os.getenv(env_key)
+	if not key:
+		raise ValueError(f"{env_key} not found in environment variables")
+	return dspy.LM(model, api_key=key)
+
+
 # Initialize LM based on type
 match llm_type:
 	case "anthropic":
-		load_dotenv()
-		key = os.getenv("ANTHROPIC_API_KEY")
-		if not key:
-			raise ValueError("ANTHROPIC_API_KEY not found in environment variables")
-		lm = dspy.LM(model, api_key=key)
+		lm = initialize_lm("ANTHROPIC_API_KEY", model)
 	case "google":
-		load_dotenv()
-		key = os.getenv("GOOGLE_API_KEY")
-		if not key:
-			raise ValueError("GOOGLE_API_KEY not found in environment variables")
-		lm = dspy.LM(model, api_key=key)
+		lm = initialize_lm("GOOGLE_API_KEY", model)
+	case "groq":
+		lm = initialize_lm("GROQ_API_KEY", model)
+	case "groq":
+		lm = initialize_lm("GROQ_API_KEY", model)
 	case "ollama":
 		lm = dspy.LM(model=model)
 	case _:
 		raise ValueError(f"Unsupported LLM type: {llm_type}\nRun 'dspick config'")
+
 
 if not config["general"]["cache"]:
 	# Disable cache for the LM
