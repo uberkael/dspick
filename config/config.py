@@ -13,28 +13,22 @@ except KeyError as e:
 	raise ValueError(f"Config LLM {e} not found in config.toml. Run 'dspick config'")
 
 
-def initialize_lm(env_key, model):
-	load_dotenv()
-	key = os.getenv(env_key)
-	if not key:
-		raise ValueError(f"{env_key} not found in environment variables")
-	return dspy.LM(model, api_key=key)
+load_dotenv()
 
+api_keys = {
+	"anthropic": "ANTHROPIC_API_KEY",
+	"google": "GOOGLE_API_KEY",
+	"groq": "GROQ_API_KEY",
+	"mistral": "MISTRAL_API_KEY",
+	"openai": "OPENAI_API_KEY",
+}
 
-# Initialize LM based on type
 match llm_type:
-	case "anthropic":
-		lm = initialize_lm("ANTHROPIC_API_KEY", model)
-	case "google":
-		lm = initialize_lm("GOOGLE_API_KEY", model)
-	case "groq":
-		lm = initialize_lm("GROQ_API_KEY", model)
-	case "groq":
-		lm = initialize_lm("GROQ_API_KEY", model)
-	case "mistral":
-		lm = initialize_lm("MISTRAL_API_KEY", model)
-	case "openai":
-		lm = initialize_lm("OPENAI_API_KEY", model)
+	case "anthropic" | "google" | "groq" | "mistral" | "openai":
+		key = os.getenv(api_keys[llm_type])
+		if not key:
+			raise ValueError(f"{api_keys[llm_type]} not found in environment variables")
+		lm = dspy.LM(model, api_key=key)
 	case "ollama":
 		lm = dspy.LM(model=model)
 	case _:
