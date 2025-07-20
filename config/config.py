@@ -33,6 +33,8 @@ match llm_type:
 		lm = initialize_lm("GROQ_API_KEY", model)
 	case "mistral":
 		lm = initialize_lm("MISTRAL_API_KEY", model)
+	case "openai":
+		lm = initialize_lm("OPENAI_API_KEY", model)
 	case "ollama":
 		lm = dspy.LM(model=model)
 	case _:
