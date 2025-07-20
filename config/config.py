@@ -14,14 +14,20 @@ except KeyError as e:
 
 # Initialize LM based on type
 match llm_type:
-	case "ollama":
-		lm = dspy.LM(model=model)
+	case "anthropic":
+		load_dotenv()
+		key = os.getenv("ANTHROPIC_API_KEY")
+		if not key:
+			raise ValueError("ANTHROPIC_API_KEY not found in environment variables")
+		lm = dspy.LM(model, api_key=key)
 	case "google":
 		load_dotenv()
-		google_key = os.getenv("GOOGLE_API_KEY")
-		if not google_key:
+		key = os.getenv("GOOGLE_API_KEY")
+		if not key:
 			raise ValueError("GOOGLE_API_KEY not found in environment variables")
-		lm = dspy.LM(model, api_key=google_key)
+		lm = dspy.LM(model, api_key=key)
+	case "ollama":
+		lm = dspy.LM(model=model)
 	case _:
 		raise ValueError(f"Unsupported LLM type: {llm_type}\nRun 'dspick config'")
 
