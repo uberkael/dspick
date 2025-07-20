@@ -43,6 +43,24 @@ models = [
     "groq/qwen-qwq-32b",
 ]
 
+[mistral]
+models = [
+    "mistral/mistral-small-latest",
+    "mistral/mistral-medium-latest",
+    "mistral/mistral-large-2407",
+    "mistral/mistral-large-latest",
+    "mistral/magistral-small-2506",
+    "mistral/magistral-medium-2506",
+    "mistral/open-mistral-7b",
+    "mistral/open-mixtral-8x7b",
+    "mistral/open-mixtral-8x22b",
+    "mistral/codestral-latest",
+    "mistral/open-mistral-nemo",
+    "mistral/open-mistral-nemo-2407",
+    "mistral/open-codestral-mamba",
+    "mistral/codestral-mamba-latest"
+]
+
 [ollama]
 models = [
     "ollama/codellama",
