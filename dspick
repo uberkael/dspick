@@ -11,7 +11,7 @@ case "$1" in
 		uv run config/menu.py
 		;;
 	*)
-		echo "Uso: dspi <optimize | reset | config>"
+		echo "Use: $0 <optimize | reset | config>"
 		exit 1
 		;;
 esac

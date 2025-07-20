@@ -1,6 +1,6 @@
 local __dspick_dir="${0:a:h}"
 
-function dspick() {
+function __dspick() {
 	local input="$BUFFER"
 	local output
 	output=$(cd "$__dspick_dir" && print -r -- "$input" | uv run dspick.py)
@@ -9,7 +9,7 @@ function dspick() {
 }
 
 # Create the zle widget
-zle -N dspick
+zle -N __dspick
 
 # Bind Ctrl+G to the function
-bindkey '^G' dspick
+bindkey '^G' __dspick
