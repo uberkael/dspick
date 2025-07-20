@@ -3,10 +3,10 @@ import os
 import dspy  # type: ignore
 from config.file_config import config
 
+
 # Early exit if config is empty
-if not (llm_config := config.get("llm")):
-	raise ValueError("Config LLM section not found. Run 'dspick config'")
 try:
+	llm_config = config["llm"]
 	llm_type = llm_config["type"]
 	model = llm_config["model"]
 except KeyError as e:
