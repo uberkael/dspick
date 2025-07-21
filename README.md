@@ -5,10 +5,22 @@ AI Shell Completions:
 Like Navi, but with DSPy under the hood.\
 Ask, Get a CLI command, Done.
 
+## Installation
 
-## Configuration
+Load `dspick` in your shell.
+
+bash:
+```bash
+source dspick.bash
+```
+
+zsh:
+```shell
+source dspick.zsh
+```
 
 Add `.env` with API keys for your LLM provider.
+(ollama does not need it)
 
 ```
 ANTHROPIC_API_KEY=xxxxxx
@@ -16,11 +28,17 @@ GOOGLE_API_KEY=xxxxxx
 GROQ_API_KEY=xxxxxx
 MISTRAL_API_KEY=xxxxxx
 OPENAI_API_KEY=xxxxxx
+...
 ```
 
-Edit the config in `config.toml`\
-or execute the config tool:
-```
+
+
+## Configuration
+
+`config.toml` to edit the config manually in .
+
+Or execute the config tool:
+```bash
 dspick config
 ```
 ![config](screens/config.png)
@@ -35,7 +53,8 @@ Options:
 
 ## Optimize
 
-The optimizer tool improves result accuracy by generating an optimized.pkl file. This file will be automatically used if present.
+The optimizer tool improves result accuracy by generating an optimized.pkl file.\
+This file will be **automatically used if present**.
 
 DSPy can refine prompts and examples to improve LLM responses. The optimization method may vary depending on the LLM being used.
 
@@ -45,7 +64,7 @@ DSPy can refine prompts and examples to improve LLM responses. The optimization 
 
 
 To run the optimizer:
-```
+```bash
 dspick optimize
 ```
 
