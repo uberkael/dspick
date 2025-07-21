@@ -43,17 +43,26 @@ Sometimes it fails:
 
 ## Installation
 
+Permissions:
+```bash
+chmod +x dspick
+```
+
 Load `dspick` in your shell.
 
-bash:
+bash (load or add to .bashrc):
 ```bash
 source dspick.bash
 ```
 
-zsh:
+zsh (load or add to .zshrc):
 ```shell
 source dspick.zsh
 ```
+
+fish:\
+WIP
+
 
 Create a `.env` file with your LLM provider API Keys.
 (Not required if using Ollama.)
@@ -85,7 +94,7 @@ Options:
 - **Cache**: LLM responses will be cached.
 - **Throttling**: Enable limit `request per minute` to avoid LLM Quotas.
 
-## Optimize
+## Optimizer
 
 The optimizer tool improves result accuracy by generating an optimized.pkl file.\
 This file is **automatically used if present**.
