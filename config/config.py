@@ -12,9 +12,6 @@ try:
 except KeyError as e:
 	raise ValueError(f"Config LLM {e} not found in config.toml. Run 'dspick config'")
 
-
-load_dotenv()
-
 api_keys = {
 	"anthropic": "ANTHROPIC_API_KEY",
 	"google": "GOOGLE_API_KEY",
@@ -25,6 +22,7 @@ api_keys = {
 
 match llm_type:
 	case "anthropic" | "google" | "groq" | "mistral" | "openai":
+		load_dotenv()
 		key = os.getenv(api_keys[llm_type])
 		if not key:
 			raise ValueError(f"{api_keys[llm_type]} not found in environment variables")
