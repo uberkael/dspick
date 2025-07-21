@@ -5,6 +5,23 @@ AI Shell Completions:
 Like Navi, but with DSPy under the hood.\
 Ask, Get a CLI command, Done.
 
+Generates CLI commands from natural language descriptions.
+
+- Can generate multiple commands in sequence.
+
+- It's context-aware, considering previous commands in the pipeline.
+
+- Provides multilingual support depending on the LLM use.
+
+- Compatible with major providers like OpenAI, Anthropic, and Ollama.
+
+- Includes an optimizer to refine accuracy.
+
+- Rate limits to manage API quotas.
+
+- Configurable via interactive tool or config file.
+
+
 ## Usage
 
 Describe the desired action and press the shortcut (default `ctrl+g`).
