@@ -13,7 +13,7 @@ Generates CLI commands from natural language descriptions.
 
 - Provides multilingual support depending on the LLM use.
 
-- Compatible with major providers like OpenAI, Anthropic, and Ollama.
+- Compatible with major providers like OpenAI, Gemini, Anthropic, and Ollama.
 
 - Includes an optimizer to refine accuracy.
 
@@ -29,15 +29,15 @@ Describe the desired action and press the shortcut (default `ctrl+g`).
 Demo:
 ![demo](screens/demo.apng)
 
-Multiple commands completion:
+Multiple command completion:\
 (in the example `sum numbers`→`paste -sd+ | bc`)
 ![multiple](screens/multiple.apng)
 
-Language support:
+Language support:\
 (Depending on the LLM)
 ![language](screens/language.apng)
 
-Sometimes it fails:
+Sometimes it fails:\
 (`$9` instead of `$11` or `$NF`)
 ![fail](screens/not_perfect.apng)
 
@@ -50,21 +50,25 @@ chmod +x dspick
 
 Load `dspick` in your shell.
 
-bash (load or add to .bashrc):
+bash:\
+(load or add to .bashrc)
 ```bash
 source dspick.bash
 ```
 
-zsh (load or add to .zshrc):
+zsh:\
+(load or add to .zshrc)
 ```shell
 source dspick.zsh
 ```
 
-fish:\
+fish:
+```
 WIP
+```
 
 
-Create a `.env` file with your LLM provider API Keys.
+Create a `.env` file with your LLM provider API Keys.\
 (Not required if using Ollama.)
 
 ```
