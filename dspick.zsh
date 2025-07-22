@@ -1,15 +1,10 @@
-local __dspick_dir="${0:a:h}"
+# dspick.fish
 
-function __dspick() {
-	local input="$BUFFER"
-	local output
-	output=$(cd "$__dspick_dir" && print -r -- "$input" | uv run dspick.py)
-	BUFFER="$output"
-	CURSOR=${#BUFFER}
-}
+function __dspick
+    set script_dir (dirname (readlink -f (status --current-filename)))
+    set input (commandline)
+    set output (cd $script_dir; echo $input | uv run dspick.py)
+    commandline --replace "$output"
+end
 
-# Create the zle widget
-zle -N __dspick
-
-# Bind Ctrl+G to the function
-bindkey '^G' __dspick
+bind \cg '__dspick'
