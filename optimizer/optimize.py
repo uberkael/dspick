@@ -209,19 +209,40 @@ def miprov2():
 	return name, accuracy, predict
 
 
-########
-# Main # MARK: Main
-########
-def optimize():
+############
+# Combined # MARK: Combined
+############
+def example_and_prompt(best_example):
+	ename, _, epredict = best_example
+	name = f"{ename} + MIPROv2:"
+	path = "optimizer/EP.pkl"
+	print(f"[cyan]{name}")
+	if os.path.exists(path):
+		print(f"[green]Loading file {name}")
+		predict = dspy.Predict(DescriptionCommand)
+		predict.load(path)
+	else:
+		print(f"[yellow]Training {name}")
+		optimizer = MIPROv2(
+			metric=validate_command,
+			prompt_model= lm,
+			num_threads=1
+		)
+		predict = optimizer.compile(epredict, trainset=train, valset=test)
+
+	print("[#ff8800]Calculating Scores")
+	scores = get_scores("EP_scores", predict)
+	accuracy = sum(scores) / len(scores)
+
+	print(f"Accuracy: {accuracy}")
+	print(Rule('-'))
+	# Save
+	predict.save(path, save_program=False)
+	return name, accuracy, predict
+
+
+def optimize_strategies(strategies):
 	final = baseline()
-	strategies = [
-		# Few Shots
-		labeled_few_shot,
-		bootstrap_few_shot,
-		bootstrap_few_show_with_random_search,
-		# Prompt
-		miprov2
-	]
 	for strategy in strategies:
 		try:
 			current = strategy()
@@ -229,6 +250,27 @@ def optimize():
 				final = current
 		except Exception:
 			continue
+	return final
+
+
+########
+# Main # MARK: Main
+########
+def optimize():
+	# Few Shots
+	s_examples = [
+		labeled_few_shot,
+		bootstrap_few_shot,
+		bootstrap_few_show_with_random_search,
+	]
+	best_example = optimize_strategies(s_examples)
+	# Prompt
+	best_prompt = miprov2()
+	# Combined
+	best_combined = example_and_prompt(best_example)
+
+	bests = [best_example, best_prompt, best_combined]
+	final = max(bests, key=lambda x: x[1])
 
 	name, acc, predict = final
 	predict.save("optimized.pkl", save_program=False)
