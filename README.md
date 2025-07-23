@@ -48,25 +48,41 @@ Permissions:
 chmod +x dspick
 ```
 
+(Maybe) Add to path
+```
+ln -s "$(pwd)/dspick" ~/bin/
+# or .local/bin
+ln -s "$(pwd)/dspick" ~.local/bin/
+```
+
+
 Load `dspick` in your shell.
 
-bash:\
+##### bash:
 (load or add to .bashrc)
 ```bash
+source $(dspick bash)
+# or in the same directory
 source dspick.bash
 ```
 
-zsh:\
+##### zsh:
 (load or add to .zshrc)
 ```shell
+source $(dspick zsh)
+# or in the same directory
 source dspick.zsh
 ```
 
-fish:
-```
-WIP
+##### fish:
+(load or add to config.fish)
+```shell
+source $(dspick fish)
+# or in the same directory
+source dspick.fish
 ```
 
+#### API Keys
 
 Create a `.env` file with your LLM provider API Keys.\
 (Not required if using Ollama.)
