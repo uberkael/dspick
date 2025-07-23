@@ -1,5 +1,7 @@
 #!/bin/bash
 
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 case "$1" in
 	optimize)
 		uv run optimizer/optimize.py
@@ -10,8 +12,18 @@ case "$1" in
 	config)
 		uv run config/menu.py
 		;;
+	bash)
+		echo "$script_dir/dspick.bash"
+		;;
+	fish)
+		echo "$script_dir/dspick.fish"
+		;;
+	zsh)
+		echo "$script_dir/dspick.zsh"
+		;;
 	*)
-		echo "Use: $0 <optimize | reset | config>"
+		echo "Use: $0 <optimize | reset | config | bash | fish | zsh>"
+		echo "For shells (ex. bash): source \$($0 bash)"
 		exit 1
 		;;
 esac

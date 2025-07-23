@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 __dspick_dir=$(dirname "$(readlink -f "$0")")
 
 __dspick() {
