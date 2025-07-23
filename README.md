@@ -87,7 +87,7 @@ source dspick.fish
 Create a `.env` file with your LLM provider API Keys.\
 (Not required if using Ollama.)
 
-```
+```shell
 ANTHROPIC_API_KEY=xxxxxx
 GOOGLE_API_KEY=xxxxxx
 GROQ_API_KEY=xxxxxx
@@ -127,10 +127,14 @@ DSPy can refine prompts and examples to improve LLM responses. The optimization 
 
 
 To run the optimizer:
-```bash
+```shell
 dspick optimize
 ```
 
+##### Training (with rate limit):
 
-##### Accuracy improvements:
+![models](screens/training.png)
+
+##### Accuracy improvements (gemini-2.5-flash-lite-preview-06-17):
+
 ![models](screens/optimizer.png)
