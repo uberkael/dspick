@@ -22,7 +22,8 @@ case "$1" in
 		echo "$script_dir/dspick.zsh"
 		;;
 	*)
-		echo "Use: $0 <optimize | reset | config | bash | fish | zsh>"
+		echo "Use:"
+		echo "$0 <optimize | reset | config | bash | fish | zsh>"
 		echo "For shells (ex. bash): source \$($0 bash)"
 		exit 1
 		;;

@@ -214,7 +214,7 @@ def miprov2():
 ############
 def example_and_prompt(best_example):
 	ename, _, epredict = best_example
-	name = f"{ename} + MIPROv2:"
+	name = f"{ename[:-1]} + MIPROv2:"
 	path = "optimizer/EP.pkl"
 	print(f"[cyan]{name}")
 	if os.path.exists(path):
