@@ -86,7 +86,7 @@ def baseline():
 	scores = get_scores("baseline_scores", base_predict)
 	accuracy = sum(scores) / len(scores)
 	print(f"Accuracy: {accuracy}")
-	print(Rule('-'))
+	print(Rule())
 	return name, accuracy, base_predict
 
 
@@ -111,7 +111,7 @@ def labeled_few_shot():
 	accuracy = sum(scores) / len(scores)
 
 	print(f"Accuracy: {accuracy}")
-	print(Rule('-'))
+	print(Rule())
 	# Save
 	predict.save(path, save_program=False)
 	return name, accuracy, predict
@@ -140,7 +140,7 @@ def bootstrap_few_shot():
 	accuracy = sum(scores) / len(scores)
 
 	print(f"Accuracy: {accuracy}")
-	print(Rule('-'))
+	print(Rule())
 	# Save
 	predict.save(path, save_program=False)
 	return name, accuracy, predict
@@ -203,7 +203,7 @@ def miprov2():
 	accuracy = sum(scores) / len(scores)
 
 	print(f"Accuracy: {accuracy}")
-	print(Rule('-'))
+	print(Rule())
 	# Save
 	predict.save(path, save_program=False)
 	return name, accuracy, predict
