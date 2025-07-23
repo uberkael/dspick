@@ -1,9 +1,11 @@
-function _dspick_replace
+#!/usr/bin/env fish
+set --global __dspick_dir (dirname (readlink -f (status --current-filename)))
+
+function __dspick
     set --local input (commandline --current-process | string trim)
 
     if test -n "$input"
-        set --local script_dir (dirname (readlink -f (status --current-filename)))
-        set --local output (echo $input | uv run $script_dir/dspick.py 2>/dev/null | string trim)
+        set --local output (echo $input | uv run $__dspick_dir/dspick.py 2>/dev/null | string trim)
 
         if test -n "$output"
             commandline --current-process $output
@@ -11,5 +13,5 @@ function _dspick_replace
     end
 end
 
-bind \cg _dspick_replace
-bind --mode insert \cg _dspick_replace
+bind \cg __dspick
+bind --mode insert \cg __dspick
