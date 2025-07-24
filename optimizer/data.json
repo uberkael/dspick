@@ -2,6 +2,42 @@
   "data": [
     {
       "context": "",
+      "command": "freebsd-version",
+      "description": "shows FreeBSD version",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "pkg info",
+      "description": "lists installed packages",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "sockstat -l",
+      "command": "grep -i 'http'",
+      "description": "finds http listening sockets",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "top -b | head -n 15",
+      "description": "shows system summary and top processes",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "zfs list",
+      "description": "displays ZFS filesystem information",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "freebsd-update fetch",
+      "description": "Busca actualizaciones de seguridad del sistema base",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
       "command": "sw_vers -productVersion",
       "description": "shows the macOS version",
       "os": "Darwin"
@@ -377,6 +413,61 @@
       "command": "softwareupdate -l",
       "description": "Lista actualizaciones disponibles del sistema",
       "os": "Darwin"
+    },
+
+    {
+      "context": "",
+      "command": "pkg audit -F",
+      "description": "Verifica vulnerabilidades en paquetes instalados",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "bsdconfig",
+      "description": "Herramienta interactiva de configuración del sistema",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "vmstat -z",
+      "description": "Muestra estadísticas de memoria kernel (zalloc)",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "procstat -a",
+      "description": "Lista todos los procesos en ejecución",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "camcontrol devlist",
+      "description": "Enumera dispositivos de almacenamiento conectados",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "jls",
+      "description": "Lista jails activas en el sistema",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "zfs list -t snapshot",
+      "description": "Muestra snapshots de ZFS",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "ipfw show",
+      "description": "Reglas de firewall (antiguo sistema IPFW)",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "kldstat -v",
+      "description": "Módulos del kernel cargados con detalles",
+      "os": "FreeBSD"
     }
   ]
 }
