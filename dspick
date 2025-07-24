@@ -1,6 +1,6 @@
 #!/bin/bash
 
-script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+script_dir="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
 
 case "$1" in
 	optimize)
@@ -23,7 +23,7 @@ case "$1" in
 		;;
 	*)
 		echo "Use:"
-		echo "$0 <optimize | reset | config | bash | fish | zsh>"
+		echo "$(basename "$0") <optimize | reset | config | bash | fish | zsh>"
 		echo "For shells (ex. bash): source \$($0 bash)"
 		exit 1
 		;;
