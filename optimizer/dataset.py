@@ -17,10 +17,11 @@ train = []
 test = []
 for i, line in enumerate(data):
 	example = dspy.Example(
-		context=line.get("context"),
 		command=line.get("command"),
-		description=line.get("description")
-	).with_inputs("context", "description")
+		context=line.get("context"),
+		description=line.get("description"),
+		os=line.get("os")
+	).with_inputs("context", "description", "os")
 
 	if i < train_size:
 		train.append(example)

@@ -241,6 +241,31 @@ def example_and_prompt(best_example):
 	return name, accuracy, predict
 
 
+def prompt_and_example(best_prompt):
+	pname, _, ppredict = best_prompt
+	name = f"{pname[:-1]} + Labeled Few Shot:"
+	path = "optimizer/PE.pkl"
+	print(f"[cyan]{name}")
+	if os.path.exists(path):
+		print(f"[green]Loading file {name}")
+		predict = dspy.Predict(DescriptionCommand)
+		predict.load(path)
+	else:
+		print(f"[yellow]Training {name}")
+		optimizer = LabeledFewShot()
+		predict = optimizer.compile(ppredict, trainset=train)
+
+	print("[#ff8800]Calculating Scores")
+	scores = get_scores("PE_scores", predict)
+	accuracy = sum(scores) / len(scores)
+
+	print(f"Accuracy: {accuracy}")
+	print(Rule('-'))
+	# Save
+	predict.save(path, save_program=False)
+	return name, accuracy, predict
+
+
 def optimize_strategies(strategies):
 	final = baseline()
 	for strategy in strategies:
@@ -267,9 +292,10 @@ def optimize():
 	# Prompt
 	best_prompt = miprov2()
 	# Combined
-	best_combined = example_and_prompt(best_example)
+	best_ep = example_and_prompt(best_example)
+	best_pe = prompt_and_example(best_prompt)
 
-	bests = [best_example, best_prompt, best_combined]
+	bests = [best_example, best_prompt, best_ep, best_pe]
 	final = max(bests, key=lambda x: x[1])
 
 	name, acc, predict = final
