@@ -2,248 +2,381 @@
   "data": [
     {
       "context": "",
+      "command": "sw_vers -productVersion",
+      "description": "shows the macOS version",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "system_profiler SPHardwareDataType",
+      "description": "displays detailed hardware information",
+      "os": "Darwin"
+    },
+    {
+      "context": "ls -l",
+      "command": "awk '{print $1}' | grep '^d'",
+      "description": "lists only directories names",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "brew list --versions",
+      "description": "shows installed Homebrew packages with versions",
+      "os": "Darwin"
+    },
+    {
+      "context": "ifconfig",
+      "command": "grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'",
+      "description": "extracts local IP addresses",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
       "command": "uname -r",
-      "description": "shows the kernel version of the system"
+      "description": "shows the kernel version of the system",
+      "os": "Linux"
     },
     {
       "context": "ls -l",
       "command": "awk '{print $1}'",
-      "description": "displays file permissions"
+      "description": "displays file permissions",
+      "os": "Linux"
     },
     {
       "context": "ls | grep '^d'",
       "command": "wc -l",
-      "description": "counts number of directories"
+      "description": "counts number of directories",
+      "os": "Linux"
     },
     {
       "context": "ps aux | grep firefox | head -1",
       "command": "awk '{print $2}'",
-      "description": "extracts the PID"
+      "description": "extracts the PID",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "ss -s",
-      "description": "displays detailed socket statistics"
+      "description": "displays detailed socket statistics",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "ncdu",
-      "description": "interactive disk usage analyzer"
+      "description": "interactive disk usage analyzer",
+      "os": "Linux"
     },
     {
       "context": "du -sh *",
       "command": "sort -h",
-      "description": "sorts directories by size"
+      "description": "sorts directories by size",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "df",
-      "description": "shows disk space usage information"
+      "description": "shows disk space usage information",
+      "os": "Linux"
     },
     {
       "context": "wc -l *.py | awk '{print $1}'",
       "command": "tr '\n' '+'",
-      "description": "replaces line breaks with plus signs"
+      "description": "replaces line breaks with plus signs",
+      "os": "Linux"
     },
     {
       "context": "wc -l *.py | awk '{print $1}'",
       "command": "paste -sd+",
-      "description": "join all with +"
+      "description": "join all with +",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "tcpdump -i eth0 port 80",
-      "description": "captures HTTP traffic on eth0 interface"
+      "description": "captures HTTP traffic on eth0 interface",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "openssl rand -base64 32",
-      "description": "generates a secure random string in base64"
+      "description": "generates a secure random string in base64",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "gpg -c",
-      "description": "encrypts a file using GPG"
+      "description": "encrypts a file using GPG",
+      "os": "Linux"
     },
     {
       "context": "ps aux",
       "command": "grep firefox",
-      "description": "filters lines containing 'firefox'"
+      "description": "filters lines containing 'firefox'",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "find / -type f -size +100M",
-      "description": "searches for files larger than 100MB"
+      "description": "searches for files larger than 100MB",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "timeout 10",
-      "description": "runs a command with a 10-second timeout"
+      "description": "runs a command with a 10-second timeout",
+      "os": "Linux"
     },
     {
       "context": "ps aux | grep firefox",
       "command": "head -1",
-      "description": "gets the first result"
+      "description": "gets the first result",
+      "os": "Linux"
     },
     {
       "context": "df -h",
       "command": "grep '/$'",
-      "description": "filters root partition"
+      "description": "filters root partition",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "crontab -l",
-      "description": "lists scheduled tasks for the current user"
+      "description": "lists scheduled tasks for the current user",
+      "os": "Linux"
     },
     {
       "context": "ls -l",
       "command": "awk '{print $9}'",
-      "description": "displays the filename"
+      "description": "displays the filename",
+      "os": "Linux"
     },
     {
       "context": "echo '12 23 1\n12 2 3' | tr ' ' '+'",
       "command": "bc",
-      "description": "sums all numbers row-wise"
+      "description": "sums all numbers row-wise",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "lsof -i :8080",
-      "description": "lists processes using port 8080"
+      "description": "lists processes using port 8080",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "tail -n 3",
-      "description": "displays the last 3 lines of a file"
+      "description": "displays the last 3 lines of a file",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "free -h",
-      "description": "displays free memory in human-readable format"
+      "description": "displays free memory in human-readable format",
+      "os": "Linux"
     },
     {
       "context": "ps aux | grep firefox | head -1 | awk '{print $2}'",
       "command": "kill",
-      "description": "terminates the selected process"
+      "description": "terminates the selected process",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "netstat -tulnp",
-      "description": "shows listening ports and associated processes"
+      "description": "shows listening ports and associated processes",
+      "os": "Linux"
     },
     {
       "context": "find /etc -type f",
       "command": "xargs grep 'PermitRootLogin'",
-      "description": "searches SSH config for root login directive"
+      "description": "searches SSH config for root login directive",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "grep -v p1",
-      "description": "searches for lines NOT containing 'p1'"
+      "description": "searches for lines NOT containing 'p1'",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "ps aux",
-      "description": "displays detailed information of all running processes"
+      "description": "displays detailed information of all running processes",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "watch -n 1",
-      "description": "monitors a command, updating every second"
+      "description": "monitors a command, updating every second",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "ls -vld .?*",
-      "description": "lists all hidden files showing their permissions"
+      "description": "lists all hidden files showing their permissions",
+      "os": "Linux"
     },
     {
       "context": "wc -l *.py",
       "command": "awk '{print $1}'",
-      "description": "extracts line counts"
+      "description": "extracts line counts",
+      "os": "Linux"
     },
     {
       "context": "df -h | grep '/$'",
       "command": "awk '{print $5}'",
-      "description": "displays disk usage percentage of root"
+      "description": "displays disk usage percentage of root",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "lsblk -o NAME,LABEL",
-      "description": "lists block devices showing name and label"
+      "description": "lists block devices showing name and label",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "ip -s -h link",
-      "description": "shows network interface statistics in human-readable format"
+      "description": "shows network interface statistics in human-readable format",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "htop",
-      "description": "interactive process viewer (enhanced top)"
+      "description": "interactive process viewer (enhanced top)",
+      "os": "Linux"
     },
     {
       "context": "wc -l *.py | awk '{print $1}' | tr '\n' '+'",
       "command": "sed 's/+$/\n/'",
-      "description": "removes last '+' from the list"
+      "description": "removes last '+' from the list",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "awk '{print $2}'",
-      "description": "prints the second column of each input line"
+      "description": "prints the second column of each input line",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "tar -czvf",
-      "description": "creates a compressed tar.gz archive of a directory"
+      "description": "creates a compressed tar.gz archive of a directory",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "lshw -short",
-      "description": "lists system hardware in a compact format"
+      "description": "lists system hardware in a compact format",
+      "os": "Linux"
     },
     {
       "context": "ls -1 | grep '.log$'",
       "command": "xargs tail -n 1",
-      "description": "shows last line of each log file"
+      "description": "shows last line of each log file",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "rsync -avz --progress",
-      "description": "syncs directories while showing progress"
+      "description": "syncs directories while showing progress",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "systemctl list-units --type=service",
-      "description": "lists all system services"
+      "description": "lists all system services",
+      "os": "Linux"
     },
     {
       "context": "ps aux | grep nginx",
       "command": "awk '{print $11}'",
-      "description": "displays command path for nginx"
+      "description": "displays command path for nginx",
+      "os": "Linux"
     },
     {
       "context": "du -sh * | sort -h",
       "command": "tail -n 5",
-      "description": "displays 5 largest items"
+      "description": "displays 5 largest items",
+      "os": "Linux"
     },
     {
       "context": "ip -s -h link",
       "command": "grep -A 1 'eth0'",
-      "description": "shows stats for eth0 interface"
+      "description": "shows stats for eth0 interface",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "mtr",
-      "description": "combines ping and traceroute in one tool"
+      "description": "combines ping and traceroute in one tool",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "ssh -i",
-      "description": "ssh connection using a specific key"
+      "description": "ssh connection using a specific key",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "journalctl -xe",
-      "description": "displays system logs with extended details"
+      "description": "displays system logs with extended details",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "defaults read /System/Library/CoreServices/SystemVersion.plist ProductVersion",
+      "description": "Obtiene la versión exacta de macOS (sin herramientas externas)",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "ioreg -l | grep \"BatteryHealth\"",
+      "description": "Muestra el estado de salud de la batería (MacBooks)",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "networksetup -listallhardwareports",
+      "description": "Enumera interfaces de red con detalles de hardware",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "diskutil list",
+      "description": "Lista discos y particiones (equivalente a lsblk en Linux)",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "system_profiler SPDisplaysDataType",
+      "description": "Muestra información detallada de pantallas y GPU",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "mdls -name kMDItemFSName -name kMDItemFSSize /",
+      "description": "Obtiene metadatos del filesystem usando Spotlight",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "pmset -g batt",
+      "description": "Estado de la batería y consumo energético",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "scutil --dns",
+      "description": "Configuración DNS actual del sistema",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "softwareupdate -l",
+      "description": "Lista actualizaciones disponibles del sistema",
+      "os": "Darwin"
     }
   ]
 }
