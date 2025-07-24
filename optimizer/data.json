@@ -2,6 +2,66 @@
   "data": [
     {
       "context": "",
+      "command": "ver",
+      "description": "Muestra la versión de Windows/MS-DOS",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "mem /c",
+      "description": "Muestra uso de memoria convencional y extendida",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "debug",
+      "description": "Herramienta de depuración de bajo nivel (16-bit)",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "tree /f",
+      "description": "Muestra estructura de directorios en forma de árbol",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "smartdrv /s",
+      "description": "Muestra estadísticas del cache de disco (SMARTDrive)",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "mode con: cols=80 lines=25",
+      "description": "Configura el buffer de la consola (columnas/líneas)",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "fdisk /status",
+      "description": "Muestra particiones del disco (herramienta clásica)",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "set",
+      "description": "Lista todas las variables de entorno",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "chkdsk /v",
+      "description": "Verifica disco y muestra nombres de archivos",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "doskey /history",
+      "description": "Muestra el historial de comandos ejecutados",
+      "os": "Windows"
+    },
+    {
+      "context": "",
       "command": "freebsd-version",
       "description": "shows FreeBSD version",
       "os": "FreeBSD"
