@@ -12,5 +12,5 @@ function __dspick() {
 # Create the zle widget
 zle -N __dspick
 
-# Bind Ctrl+G to the function
-bindkey '^G' __dspick
+# Bind Ctrl+E to the function
+bindkey '^E' __dspick

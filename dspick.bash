@@ -8,4 +8,4 @@ __dspick() {
 	READLINE_POINT=${#READLINE_LINE}
 }
 
-bind -x '"\C-g":__dspick'
+bind -x '"\C-e":__dspick'

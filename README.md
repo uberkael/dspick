@@ -24,7 +24,7 @@ Generates CLI commands from natural language descriptions.
 
 ## Usage
 
-Describe the desired action and press the shortcut (default `ctrl+g`).
+Describe the desired action and press the shortcut (default `ctrl+e`).
 
 Demo:
 ![demo](screens/demo.apng)
@@ -59,23 +59,42 @@ ln -s "$(pwd)/dspick" ~.local/bin/
 Load `dspick` in your shell.
 
 ##### bash:
-(load or add to .bashrc)
+
+Load
 ```bash
 source $(dspick bash)
 # or in the same directory
 source dspick.bash
 ```
 
+Or add to .bashrc
+
+```bash
+if [ -x "$(command -v dspick)" ]; then
+	source "$(dspick zsh)"
+fi
+```
+
 ##### zsh:
-(load or add to .zshrc)
+
+Load
 ```shell
 source $(dspick zsh)
 # or in the same directory
 source dspick.zsh
 ```
 
+Or add to .zshrc
+
+```bash
+if [ -x "$(command -v dspick)" ]; then
+	source "$(dspick zsh)"
+fi
+```
+
 ##### fish:
-(load or add to config.fish)
+
+Load
 ```shell
 source $(dspick fish)
 # or in the same directory

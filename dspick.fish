@@ -13,5 +13,5 @@ function __dspick
     end
 end
 
-bind \cg __dspick
-bind --mode insert \cg __dspick
+bind \ce __dspick
+bind --mode insert \ce __dspick
