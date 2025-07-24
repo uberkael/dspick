@@ -2,128 +2,32 @@
   "data": [
     {
       "context": "",
-      "command": "ver",
-      "description": "Muestra la versión de Windows/MS-DOS",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "mem /c",
-      "description": "Muestra uso de memoria convencional y extendida",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "debug",
-      "description": "Herramienta de depuración de bajo nivel (16-bit)",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "tree /f",
-      "description": "Muestra estructura de directorios en forma de árbol",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "smartdrv /s",
-      "description": "Muestra estadísticas del cache de disco (SMARTDrive)",
-      "os": "Windows"
+      "command": "awk '{print $2}'",
+      "description": "prints the second column of each input line",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "mode con: cols=80 lines=25",
-      "description": "Configura el buffer de la consola (columnas/líneas)",
+      "description": "Configures console buffer (columns/lines)",
       "os": "Windows"
     },
     {
       "context": "",
-      "command": "fdisk /status",
-      "description": "Muestra particiones del disco (herramienta clásica)",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "set",
-      "description": "Lista todas las variables de entorno",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "chkdsk /v",
-      "description": "Verifica disco y muestra nombres de archivos",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "doskey /history",
-      "description": "Muestra el historial de comandos ejecutados",
-      "os": "Windows"
-    },
-    {
-      "context": "",
-      "command": "freebsd-version",
-      "description": "shows FreeBSD version",
-      "os": "FreeBSD"
-    },
-    {
-      "context": "",
-      "command": "pkg info",
-      "description": "lists installed packages",
-      "os": "FreeBSD"
-    },
-    {
-      "context": "sockstat -l",
-      "command": "grep -i 'http'",
-      "description": "finds http listening sockets",
-      "os": "FreeBSD"
-    },
-    {
-      "context": "",
-      "command": "top -b | head -n 15",
-      "description": "shows system summary and top processes",
-      "os": "FreeBSD"
-    },
-    {
-      "context": "",
-      "command": "zfs list",
-      "description": "displays ZFS filesystem information",
-      "os": "FreeBSD"
-    },
-    {
-      "context": "",
-      "command": "freebsd-update fetch",
-      "description": "Busca actualizaciones de seguridad del sistema base",
-      "os": "FreeBSD"
-    },
-    {
-      "context": "",
-      "command": "sw_vers -productVersion",
-      "description": "shows the macOS version",
+      "command": "networksetup -listallhardwareports",
+      "description": "Lists network interfaces with hardware details",
       "os": "Darwin"
     },
     {
-      "context": "",
-      "command": "system_profiler SPHardwareDataType",
-      "description": "displays detailed hardware information",
-      "os": "Darwin"
-    },
-    {
-      "context": "ls -l",
-      "command": "awk '{print $1}' | grep '^d'",
-      "description": "lists only directories names",
-      "os": "Darwin"
+      "context": "ls | grep '^d'",
+      "command": "wc -l",
+      "description": "counts number of directories",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "brew list --versions",
-      "description": "shows installed Homebrew packages with versions",
-      "os": "Darwin"
-    },
-    {
-      "context": "ifconfig",
-      "command": "grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'",
-      "description": "extracts local IP addresses",
+      "command": "softwareupdate -l",
+      "description": "Lists available system updates",
       "os": "Darwin"
     },
     {
@@ -133,195 +37,15 @@
       "os": "Linux"
     },
     {
-      "context": "ls -l",
-      "command": "awk '{print $1}'",
-      "description": "displays file permissions",
-      "os": "Linux"
-    },
-    {
-      "context": "ls | grep '^d'",
-      "command": "wc -l",
-      "description": "counts number of directories",
-      "os": "Linux"
-    },
-    {
-      "context": "ps aux | grep firefox | head -1",
-      "command": "awk '{print $2}'",
-      "description": "extracts the PID",
-      "os": "Linux"
-    },
-    {
       "context": "",
-      "command": "ss -s",
-      "description": "displays detailed socket statistics",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "ncdu",
-      "description": "interactive disk usage analyzer",
-      "os": "Linux"
-    },
-    {
-      "context": "du -sh *",
-      "command": "sort -h",
-      "description": "sorts directories by size",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "df",
-      "description": "shows disk space usage information",
-      "os": "Linux"
-    },
-    {
-      "context": "wc -l *.py | awk '{print $1}'",
-      "command": "tr '\n' '+'",
-      "description": "replaces line breaks with plus signs",
-      "os": "Linux"
-    },
-    {
-      "context": "wc -l *.py | awk '{print $1}'",
-      "command": "paste -sd+",
-      "description": "join all with +",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "tcpdump -i eth0 port 80",
-      "description": "captures HTTP traffic on eth0 interface",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "openssl rand -base64 32",
-      "description": "generates a secure random string in base64",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "gpg -c",
-      "description": "encrypts a file using GPG",
-      "os": "Linux"
-    },
-    {
-      "context": "ps aux",
-      "command": "grep firefox",
-      "description": "filters lines containing 'firefox'",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "find / -type f -size +100M",
-      "description": "searches for files larger than 100MB",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "timeout 10",
-      "description": "runs a command with a 10-second timeout",
-      "os": "Linux"
-    },
-    {
-      "context": "ps aux | grep firefox",
-      "command": "head -1",
-      "description": "gets the first result",
-      "os": "Linux"
-    },
-    {
-      "context": "df -h",
-      "command": "grep '/$'",
-      "description": "filters root partition",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "crontab -l",
-      "description": "lists scheduled tasks for the current user",
-      "os": "Linux"
-    },
-    {
-      "context": "ls -l",
-      "command": "awk '{print $9}'",
-      "description": "displays the filename",
-      "os": "Linux"
-    },
-    {
-      "context": "echo '12 23 1\n12 2 3' | tr ' ' '+'",
-      "command": "bc",
-      "description": "sums all numbers row-wise",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "lsof -i :8080",
-      "description": "lists processes using port 8080",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "tail -n 3",
-      "description": "displays the last 3 lines of a file",
-      "os": "Linux"
+      "command": "system_profiler SPDisplaysDataType",
+      "description": "Shows detailed information about displays and GPU",
+      "os": "Darwin"
     },
     {
       "context": "",
       "command": "free -h",
       "description": "displays free memory in human-readable format",
-      "os": "Linux"
-    },
-    {
-      "context": "ps aux | grep firefox | head -1 | awk '{print $2}'",
-      "command": "kill",
-      "description": "terminates the selected process",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "netstat -tulnp",
-      "description": "shows listening ports and associated processes",
-      "os": "Linux"
-    },
-    {
-      "context": "find /etc -type f",
-      "command": "xargs grep 'PermitRootLogin'",
-      "description": "searches SSH config for root login directive",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "grep -v p1",
-      "description": "searches for lines NOT containing 'p1'",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "ps aux",
-      "description": "displays detailed information of all running processes",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "watch -n 1",
-      "description": "monitors a command, updating every second",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "ls -vld .?*",
-      "description": "lists all hidden files showing their permissions",
-      "os": "Linux"
-    },
-    {
-      "context": "wc -l *.py",
-      "command": "awk '{print $1}'",
-      "description": "extracts line counts",
-      "os": "Linux"
-    },
-    {
-      "context": "df -h | grep '/$'",
-      "command": "awk '{print $5}'",
-      "description": "displays disk usage percentage of root",
       "os": "Linux"
     },
     {
@@ -331,16 +55,28 @@
       "os": "Linux"
     },
     {
-      "context": "",
-      "command": "ip -s -h link",
-      "description": "shows network interface statistics in human-readable format",
+      "context": "wc -l *.py",
+      "command": "awk '{print $1}'",
+      "description": "extracts line counts",
       "os": "Linux"
     },
     {
       "context": "",
-      "command": "htop",
-      "description": "interactive process viewer (enhanced top)",
-      "os": "Linux"
+      "command": "kldstat -v",
+      "description": "Loaded kernel modules with details",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "jls",
+      "description": "Lists active jails on the system",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "ver",
+      "description": "Shows the version of Windows/MS-DOS",
+      "os": "Windows"
     },
     {
       "context": "wc -l *.py | awk '{print $1}' | tr '\n' '+'",
@@ -350,56 +86,32 @@
     },
     {
       "context": "",
-      "command": "awk '{print $2}'",
-      "description": "prints the second column of each input line",
+      "command": "smartdrv /s",
+      "description": "Shows disk cache statistics (SMARTDrive)",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "scutil --dns",
+      "description": "Current DNS configuration of the system",
+      "os": "Darwin"
+    },
+    {
+      "context": "du -sh *",
+      "command": "sort -h",
+      "description": "sorts directories by size",
       "os": "Linux"
     },
     {
       "context": "",
-      "command": "tar -czvf",
-      "description": "creates a compressed tar.gz archive of a directory",
-      "os": "Linux"
+      "command": "ipfw show",
+      "description": "Firewall rules (old IPFW system)",
+      "os": "FreeBSD"
     },
     {
       "context": "",
-      "command": "lshw -short",
-      "description": "lists system hardware in a compact format",
-      "os": "Linux"
-    },
-    {
-      "context": "ls -1 | grep '.log$'",
-      "command": "xargs tail -n 1",
-      "description": "shows last line of each log file",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "rsync -avz --progress",
-      "description": "syncs directories while showing progress",
-      "os": "Linux"
-    },
-    {
-      "context": "",
-      "command": "systemctl list-units --type=service",
-      "description": "lists all system services",
-      "os": "Linux"
-    },
-    {
-      "context": "ps aux | grep nginx",
-      "command": "awk '{print $11}'",
-      "description": "displays command path for nginx",
-      "os": "Linux"
-    },
-    {
-      "context": "du -sh * | sort -h",
-      "command": "tail -n 5",
-      "description": "displays 5 largest items",
-      "os": "Linux"
-    },
-    {
-      "context": "ip -s -h link",
-      "command": "grep -A 1 'eth0'",
-      "description": "shows stats for eth0 interface",
+      "command": "ncdu",
+      "description": "interactive disk usage analyzer",
       "os": "Linux"
     },
     {
@@ -410,8 +122,200 @@
     },
     {
       "context": "",
-      "command": "ssh -i",
-      "description": "ssh connection using a specific key",
+      "command": "crontab -l",
+      "description": "lists scheduled tasks for the current user",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "chkdsk /v",
+      "description": "Checks disk and shows file names",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "ls -vld .?*",
+      "description": "lists all hidden files showing their permissions",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "systemctl list-units --type=service",
+      "description": "lists all system services",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "sw_vers -productVersion",
+      "description": "shows the macOS version",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "find / -type f -size +100M",
+      "description": "searches for files larger than 100MB",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "watch -n 1",
+      "description": "monitors a command, updating every second",
+      "os": "Linux"
+    },
+    {
+      "context": "ifconfig",
+      "command": "grep 'inet ' | grep -v 127.0.0.1 | awk '{print $2}'",
+      "description": "extracts local IP addresses",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "set",
+      "description": "Lists all environment variables",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "tree /f",
+      "description": "Displays directory structure as a tree",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "gpg -c",
+      "description": "encrypts a file using GPG",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "netstat -tulnp",
+      "description": "shows listening ports and associated processes",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "tcpdump -i eth0 port 80",
+      "description": "captures HTTP traffic on eth0 interface",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "zfs list -t snapshot",
+      "description": "Shows ZFS snapshots",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "bsdconfig",
+      "description": "Interactive system configuration tool",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "df -h | grep '/$'",
+      "command": "awk '{print $5}'",
+      "description": "displays disk usage percentage of root",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "freebsd-update fetch",
+      "description": "Searches for security updates for the base system",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "doskey /history",
+      "description": "Shows history of executed commands",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "fdisk /status",
+      "description": "Shows disk partitions (classic tool)",
+      "os": "Windows"
+    },
+    {
+      "context": "ps aux",
+      "command": "grep firefox",
+      "description": "filters lines containing 'firefox'",
+      "os": "Linux"
+    },
+    {
+      "context": "ps aux | grep firefox",
+      "command": "head -1",
+      "description": "gets the first result",
+      "os": "Linux"
+    },
+    {
+      "context": "echo '12 23 1\n12 2 3' | tr ' ' '+'",
+      "command": "bc",
+      "description": "sums all numbers row-wise",
+      "os": "Linux"
+    },
+    {
+      "context": "wc -l *.py | awk '{print $1}'",
+      "command": "paste -sd+",
+      "description": "join all with +",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "openssl rand -base64 32",
+      "description": "generates a secure random string in base64",
+      "os": "Linux"
+    },
+    {
+      "context": "ls -1 | grep '.log$'",
+      "command": "xargs tail -n 1",
+      "description": "shows last line of each log file",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "brew list --versions",
+      "description": "shows installed Homebrew packages with versions",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "diskutil list",
+      "description": "Lists disks and partitions (equivalent to lsblk in Linux)",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "system_profiler SPHardwareDataType",
+      "description": "displays detailed hardware information",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "debug",
+      "description": "Low-level debugging tool (16-bit)",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "pmset -g batt",
+      "description": "Battery status and power consumption",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "vmstat -z",
+      "description": "Shows kernel memory statistics (zalloc)",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "sockstat -l",
+      "command": "grep -i 'http'",
+      "description": "finds http listening sockets",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "grep -v p1",
+      "description": "searches for lines NOT containing 'p1'",
       "os": "Linux"
     },
     {
@@ -422,111 +326,206 @@
     },
     {
       "context": "",
+      "command": "mem /c",
+      "description": "Shows usage of conventional and extended memory",
+      "os": "Windows"
+    },
+    {
+      "context": "",
+      "command": "pkg info",
+      "description": "lists installed packages",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
+      "command": "htop",
+      "description": "interactive process viewer (enhanced top)",
+      "os": "Linux"
+    },
+    {
+      "context": "ip -s -h link",
+      "command": "grep -A 1 'eth0'",
+      "description": "shows stats for eth0 interface",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "pkg audit -F",
+      "description": "Checks for vulnerabilities in installed packages",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "ls -l",
+      "command": "awk '{print $1}' | grep '^d'",
+      "description": "lists only directories names",
+      "os": "Darwin"
+    },
+    {
+      "context": "",
+      "command": "zfs list",
+      "description": "displays ZFS filesystem information",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "find /etc -type f",
+      "command": "xargs grep 'PermitRootLogin'",
+      "description": "searches SSH config for root login directive",
+      "os": "Linux"
+    },
+    {
+      "context": "ls -l",
+      "command": "awk '{print $1}'",
+      "description": "displays file permissions",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "ssh -i",
+      "description": "ssh connection using a specific key",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "camcontrol devlist",
+      "description": "Lists connected storage devices",
+      "os": "FreeBSD"
+    },
+    {
+      "context": "",
       "command": "defaults read /System/Library/CoreServices/SystemVersion.plist ProductVersion",
-      "description": "Obtiene la versión exacta de macOS (sin herramientas externas)",
-      "os": "Darwin"
-    },
-    {
-      "context": "",
-      "command": "ioreg -l | grep \"BatteryHealth\"",
-      "description": "Muestra el estado de salud de la batería (MacBooks)",
-      "os": "Darwin"
-    },
-    {
-      "context": "",
-      "command": "networksetup -listallhardwareports",
-      "description": "Enumera interfaces de red con detalles de hardware",
-      "os": "Darwin"
-    },
-    {
-      "context": "",
-      "command": "diskutil list",
-      "description": "Lista discos y particiones (equivalente a lsblk en Linux)",
-      "os": "Darwin"
-    },
-    {
-      "context": "",
-      "command": "system_profiler SPDisplaysDataType",
-      "description": "Muestra información detallada de pantallas y GPU",
+      "description": "Gets the exact version of macOS (without external tools)",
       "os": "Darwin"
     },
     {
       "context": "",
       "command": "mdls -name kMDItemFSName -name kMDItemFSSize /",
-      "description": "Obtiene metadatos del filesystem usando Spotlight",
+      "description": "Gets filesystem metadata using Spotlight",
       "os": "Darwin"
     },
     {
       "context": "",
-      "command": "pmset -g batt",
-      "description": "Estado de la batería y consumo energético",
-      "os": "Darwin"
+      "command": "lshw -short",
+      "description": "lists system hardware in a compact format",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "scutil --dns",
-      "description": "Configuración DNS actual del sistema",
-      "os": "Darwin"
+      "command": "tar -czvf",
+      "description": "creates a compressed tar.gz archive of a directory",
+      "os": "Linux"
+    },
+    {
+      "context": "ls -l",
+      "command": "awk '{print $9}'",
+      "description": "displays the filename",
+      "os": "Linux"
+    },
+    {
+      "context": "ps aux | grep nginx",
+      "command": "awk '{print $11}'",
+      "description": "displays command path for nginx",
+      "os": "Linux"
+    },
+    {
+      "context": "ps aux | grep firefox | head -1",
+      "command": "awk '{print $2}'",
+      "description": "extracts the PID",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "softwareupdate -l",
-      "description": "Lista actualizaciones disponibles del sistema",
-      "os": "Darwin"
-    },
-
-    {
-      "context": "",
-      "command": "pkg audit -F",
-      "description": "Verifica vulnerabilidades en paquetes instalados",
-      "os": "FreeBSD"
+      "command": "lsof -i :8080",
+      "description": "lists processes using port 8080",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "bsdconfig",
-      "description": "Herramienta interactiva de configuración del sistema",
-      "os": "FreeBSD"
+      "command": "ss -s",
+      "description": "displays detailed socket statistics",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "vmstat -z",
-      "description": "Muestra estadísticas de memoria kernel (zalloc)",
-      "os": "FreeBSD"
+      "command": "rsync -avz --progress",
+      "description": "syncs directories while showing progress",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "df",
+      "description": "shows disk space usage information",
+      "os": "Linux"
     },
     {
       "context": "",
       "command": "procstat -a",
-      "description": "Lista todos los procesos en ejecución",
+      "description": "Lists all running processes",
       "os": "FreeBSD"
     },
     {
       "context": "",
-      "command": "camcontrol devlist",
-      "description": "Enumera dispositivos de almacenamiento conectados",
-      "os": "FreeBSD"
+      "command": "timeout 10",
+      "description": "runs a command with a 10-second timeout",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "jls",
-      "description": "Lista jails activas en el sistema",
+      "command": "freebsd-version",
+      "description": "shows FreeBSD version",
       "os": "FreeBSD"
     },
     {
-      "context": "",
-      "command": "zfs list -t snapshot",
-      "description": "Muestra snapshots de ZFS",
-      "os": "FreeBSD"
+      "context": "ps aux | grep firefox | head -1 | awk '{print $2}'",
+      "command": "kill",
+      "description": "terminates the selected process",
+      "os": "Linux"
+    },
+    {
+      "context": "df -h",
+      "command": "grep '/$'",
+      "description": "filters root partition",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "ipfw show",
-      "description": "Reglas de firewall (antiguo sistema IPFW)",
-      "os": "FreeBSD"
+      "command": "ip -s -h link",
+      "description": "shows network interface statistics in human-readable format",
+      "os": "Linux"
     },
     {
       "context": "",
-      "command": "kldstat -v",
-      "description": "Módulos del kernel cargados con detalles",
+      "command": "tail -n 3",
+      "description": "displays the last 3 lines of a file",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "ps aux",
+      "description": "displays detailed information of all running processes",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "ioreg -l | grep \"BatteryHealth\"",
+      "description": "Shows battery health status (MacBooks)",
+      "os": "Darwin"
+    },
+    {
+      "context": "wc -l *.py | awk '{print $1}'",
+      "command": "tr '\n' '+'",
+      "description": "replaces line breaks with plus signs",
+      "os": "Linux"
+    },
+    {
+      "context": "du -sh * | sort -h",
+      "command": "tail -n 5",
+      "description": "displays 5 largest items",
+      "os": "Linux"
+    },
+    {
+      "context": "",
+      "command": "top -b | head -n 15",
+      "description": "shows system summary and top processes",
       "os": "FreeBSD"
     }
   ]
